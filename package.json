@@ -1,0 +1,19 @@
+{
+  "name": "burger-queen",
+  "version": "1.0.0",
+  "description": "## Preámbulo",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dajhelyan/LIM009-fe-burger-queen.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dajhelyan/LIM009-fe-burger-queen/issues"
+  },
+  "homepage": "https://github.com/dajhelyan/LIM009-fe-burger-queen#readme"
+}
