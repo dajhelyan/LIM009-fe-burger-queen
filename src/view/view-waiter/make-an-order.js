@@ -1,5 +1,6 @@
 export const showPageWaiter = () => {
-    const divWaiter = ` <header>
+    const divWaiter = ` 
+    <header>
     <nav>
      <ul>
         <li><i class="fas fa-bars"></i></li>
@@ -37,9 +38,9 @@ export const showPageWaiter = () => {
    </table>
    </div>
  `
- const pageWaiter = document.createElement('section');
- pageWaiter.innerHTML = divWaiter;
+    const pageWaiter = document.createElement('section');
+    pageWaiter.innerHTML = divWaiter;
 
-return pageWaiter;
+    return pageWaiter;
 
 }

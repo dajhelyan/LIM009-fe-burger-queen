@@ -1,4 +1,5 @@
-import { showPageWaiter } from './view-waiter/make-an-order.js'
+// import { showPageWaiter } from './view-waiter/make-an-order.js'
+import { homePage } from '../lib/view-controller/view-controller-firestore.js'
 
 export const viewHome = () => {
     const homeTemplate = `
@@ -13,7 +14,7 @@ export const viewHome = () => {
     createDiv.innerHTML = homeTemplate;
 
     const btnWaiter = createDiv.querySelector('#waiter');
-    btnWaiter.addEventListener('click', )
+    btnWaiter.addEventListener('click', homePage )
     
 
     return createDiv;
