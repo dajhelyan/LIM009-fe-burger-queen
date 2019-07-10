@@ -18,23 +18,24 @@ export const showPageWaiter = () => {
    <div>
    <p>Pedidos</p>
    <caption> Lista de Pedidos</caption>
-   <tr>
-       <th>Ítem</th>
-       <th>Precio $</th>
-   </tr>
-   <tr>
-       <td>Café americano</td>
-       <td>5</td>
-   </tr>
-   <tr>
-       <td>Sandwich de jamón y queso</td>
-       <td>10</td>
-   </tr>
-   <tr>
-       <td>Jugo de frutas natural</td>
-       <td>7</td>
-   </tr>
-   </table>
+		<tr>
+			<th>Ítem</th>
+			<th>Precio $</th>
+		</tr>
+		<tr>
+			<td>Café americano</td>
+			<td>5</td>
+        </tr>
+        <tr>
+			<td>Sandwich de jamón y queso</td>
+			<td>10</td>
+        </tr>
+        <tr>
+			<td>Jugo de frutas natural</td>
+			<td>7</td>
+        </tr>
+    
+		</table>
    </div>
  `
  const pageWaiter = document.createElement('section');

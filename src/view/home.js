@@ -1,4 +1,4 @@
-import { showPageWaiter } from './view-waiter/make-an-order.js'
+
 
 export const viewHome = () => {
     const homeTemplate = `
