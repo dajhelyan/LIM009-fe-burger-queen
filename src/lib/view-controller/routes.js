@@ -9,8 +9,12 @@ export const changeView = (route) => {
         case '#':
         case '#/':
         case '#home/':
-            { return root.appendChild(components.home()) };
+            return root.appendChild(components.home()) ;
+        breack;
 
+        case '#waiter/':
+              return root.appendChild(components.showPageWaiter());
+              
         default:
             break;
     }

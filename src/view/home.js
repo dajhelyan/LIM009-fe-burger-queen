@@ -1,3 +1,4 @@
+import { showPageWaiter } from './view-waiter/make-an-order.js'
 
 export const viewHome = () => {
     const homeTemplate = `
@@ -11,5 +12,10 @@ export const viewHome = () => {
     const createDiv = document.createElement('div');
     createDiv.innerHTML = homeTemplate;
 
+    const btnWaiter = createDiv.querySelector('#waiter');
+    btnWaiter.addEventListener('click', )
+    
+
     return createDiv;
 }
+
