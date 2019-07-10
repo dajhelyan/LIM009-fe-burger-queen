@@ -1,3 +1,5 @@
+import { initRouter } from './lib/view-controller/routes.js';
+
 const init = () => {
     const firebaseConfig = {
         apiKey: "AIzaSyCchcYDudOrbctZcvvNAEtl0ei8m_dLBFQ",
@@ -7,7 +9,11 @@ const init = () => {
         storageBucket: "team-burger-queen.appspot.com",
         messagingSenderId: "159729991919",
         appId: "1:159729991919:web:d363e612f34d72a1"
-      };
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    initRouter();
+
 }
+
+window.onload = init();
