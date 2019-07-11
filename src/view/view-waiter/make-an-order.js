@@ -1,3 +1,5 @@
+import { pintarData } from '../../lib/view-controller/view-controller-firestore.js'
+
 export const showPageWaiter = () => {
     const divWaiter = ` 
     <header>
@@ -12,35 +14,34 @@ export const showPageWaiter = () => {
  </header>
  <div>
    <p>Ingresar Nombre de Cliente </p>
-   <input type="text"placeholder="Nombre Cliente"></input>
-   <button type="button">Desayuno</button>
-   <button type="button">Almuerzo</button>
+   <input type="text" id="desayuno"placeholder="Nombre Cliente"></input>
+   <button type="button" id="desayuno-a">Desayuno</button>
+   <button type="button" id="almuerzo">Almuerzo</button>
    </div>
-   <div>
-   <p>Pedidos</p>
-   <caption> Lista de Pedidos</caption>
-   <tr>
-       <th>Ítem</th>
-       <th>Precio $</th>
-   </tr>
-   <tr>
-       <td>Café americano</td>
-       <td>5</td>
-   </tr>
-   <tr>
-       <td>Sandwich de jamón y queso</td>
-       <td>10</td>
-   </tr>
-   <tr>
-       <td>Jugo de frutas natural</td>
-       <td>7</td>
-   </tr>
-   </table>
+
+   <div id="container-menu">    
+   
    </div>
  `
     const pageWaiter = document.createElement('section');
     pageWaiter.innerHTML = divWaiter;
 
+    
+
+    const btnDesayuno = pageWaiter.querySelector('#desayuno-a');
+    btnDesayuno.addEventListener('click', pintarData)
+    
+    
+
+
+    // const btnAlmuerzo = pageWaiter.querySelector('#almuerzo');
+    // btnAlmuerzo.addEventListener('click',  )
+
+        //aui va funcion de firestore para tarer data y pinta
+    return pageWaiter
+
+
     return pageWaiter;
+
 
 }
