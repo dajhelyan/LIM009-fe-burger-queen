@@ -1,4 +1,7 @@
-import { pintarData } from '../../lib/view-controller/view-controller-firestore.js'
+import { showDesayuno } from "./view-desayuno.js";
+
+import { obtenerDta } from '../../lib/controller/firestore.js'
+// import { pintarDesayuno } from '../../lib/view-controller/view-controller-firestore.js'
 
 export const showPageWaiter = () => {
     const divWaiter = ` 
@@ -28,9 +31,10 @@ export const showPageWaiter = () => {
     
 
     const btnDesayuno = pageWaiter.querySelector('#desayuno-a');
-    btnDesayuno.addEventListener('click', pintarData)
+    btnDesayuno.addEventListener('click', () => showDesayuno(obtenerDta));
     
-    
+
+     
 
 
     // const btnAlmuerzo = pageWaiter.querySelector('#almuerzo');
