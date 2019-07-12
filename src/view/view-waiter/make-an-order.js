@@ -28,6 +28,7 @@ export const showPageWaiter = () => {
  `
     const pageWaiter = document.createElement('section');
     pageWaiter.innerHTML = divWaiter;
+
     
 
     const btnDesayuno = pageWaiter.querySelector('#desayuno-a');
@@ -42,5 +43,9 @@ export const showPageWaiter = () => {
 
         //aui va funcion de firestore para tarer data y pinta
     return pageWaiter
+
+
+    return pageWaiter;
+
 
 }
