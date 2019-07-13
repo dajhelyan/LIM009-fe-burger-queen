@@ -1,6 +1,6 @@
 import { showDesayuno } from "./view-desayuno.js";
 
-import { obtenerDta } from '../../lib/controller/firestore.js'
+import { obtenerDataDesayuno } from '../../lib/controller/firestore.js'
 // import { pintarDesayuno } from '../../lib/view-controller/view-controller-firestore.js'
 
 export const showPageWaiter = () => {
@@ -22,8 +22,9 @@ export const showPageWaiter = () => {
    <button type="button" id="almuerzo">Almuerzo</button>
    </div>
 
-   <div id="container-menu">    
-   
+   <div id="container-menu">  
+   </div>  
+   <div id ="see-orders">
    </div>
  `
     const pageWaiter = document.createElement('section');
@@ -32,20 +33,15 @@ export const showPageWaiter = () => {
     
 
     const btnDesayuno = pageWaiter.querySelector('#desayuno-a');
-    btnDesayuno.addEventListener('click', () => showDesayuno(obtenerDta));
+    btnDesayuno.addEventListener('click', () => showDesayuno(obtenerDataDesayuno));
     
-
-     
-
 
     // const btnAlmuerzo = pageWaiter.querySelector('#almuerzo');
     // btnAlmuerzo.addEventListener('click',  )
 
-        //aui va funcion de firestore para tarer data y pinta
-    return pageWaiter
-
-
     return pageWaiter;
 
+
+    
 
 }
