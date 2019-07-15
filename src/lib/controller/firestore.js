@@ -1,7 +1,5 @@
-// funcion para traer datos de firestore
 
-//cambiar nombre a controller-firebase
-export const obtenerDta = () => {
+ export const getDataBreakfast = () => {
     const db = firebase.firestore();
 
     return db.collection("desayuno")
