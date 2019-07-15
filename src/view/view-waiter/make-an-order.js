@@ -1,7 +1,8 @@
-import { showDesayuno } from "./view-desayuno.js";
+import { showBreakfast, showLunch } from "./view-desayuno.js";
 
-import { obtenerDta } from '../../lib/controller/firestore.js'
+import { obtenerDta, getLunchData } from '../../lib/controller/firestore.js';
 // import { pintarDesayuno } from '../../lib/view-controller/view-controller-firestore.js'
+// import { getBreakfastData, getLunchData } from '../../lib/controller/controller-firestore.js';
 
 export const showPageWaiter = () => {
     const divWaiter = ` 
@@ -17,9 +18,9 @@ export const showPageWaiter = () => {
  </header>
  <div>
    <p>Ingresar Nombre de Cliente </p>
-   <input type="text" id="desayuno"placeholder="Nombre Cliente"></input>
-   <button type="button" id="desayuno-a">Desayuno</button>
-   <button type="button" id="almuerzo">Almuerzo</button>
+   <input type="text" id="name-user" placeholder="Nombre Cliente"></input>
+   <button type="button" id="menu-breakfast">Desayuno</button>
+   <button type="button" id="menu-lunch">Almuerzo</button>
    </div>
 
    <div id="container-menu">    
@@ -29,23 +30,21 @@ export const showPageWaiter = () => {
     const pageWaiter = document.createElement('section');
     pageWaiter.innerHTML = divWaiter;
 
+    const btnDesayuno = pageWaiter.querySelector('#menu-breakfast');
+    btnDesayuno.addEventListener('click', () => {
+      showBreakfast(obtenerDta)
+    });
     
-
-    const btnDesayuno = pageWaiter.querySelector('#desayuno-a');
-    btnDesayuno.addEventListener('click', () => showDesayuno(obtenerDta));
-    
-
+    const btnMenuLunch =  pageWaiter.querySelector('#menu-lunch');
+    btnMenuLunch.addEventListener('click', () => {
+      showLunch(getLunchData)
+    });
      
-
+    
 
     // const btnAlmuerzo = pageWaiter.querySelector('#almuerzo');
     // btnAlmuerzo.addEventListener('click',  )
 
-        //aui va funcion de firestore para tarer data y pinta
-    return pageWaiter
-
-
+        //aui va funcion de firestore para tarer data y pintar
     return pageWaiter;
-
-
 }
