@@ -24,7 +24,10 @@ export const showPageWaiter = () => {
     </div>
     <div id="container-menu">  
     </div>  
-    <div id="see-order">
+    <div>
+      <p>Pedido:</p>
+      <ul id="see-order">
+      </ul>
     </div>
  `
     const pageWaiter = document.createElement('section');
