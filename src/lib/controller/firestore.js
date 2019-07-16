@@ -10,6 +10,7 @@
                 console.log(querySnapshot, 'ee')
                 const obj = {
                     id: doc.id,
+                    img: doc.data().img,
                     producto: doc.data().producto,
                     precio: doc.data().precio
                 }

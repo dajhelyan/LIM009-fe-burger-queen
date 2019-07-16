@@ -6,13 +6,14 @@ export const showBreakfast = (callback) => {
     container.innerHTML = '';
     callback()
     .then((result) => {
+        console.log(result)
         result.forEach(product => {
 
        const listProducts = document.createElement('div');
         listProducts.innerHTML += `<div class="div-desayunos"> 
-     <img src="">
+     <img src="${product.img}">
      <p>${product.producto}</p>
-     <p>${product.precio}</p>
+     <p>s/.${product.precio}.00</p>
      <button id="btn-add-${product.id}" class='product' type="button">Añadir</button>
      </div>`
 
@@ -29,7 +30,7 @@ export const showBreakfast = (callback) => {
             <th>Precio $</th>
         </tr>
         <tr>
-            <td>${product.producto}o</td>
+            <td>${product.producto}</td>
             <td>${product.precio}</td>
         </tr>
         <tr>
