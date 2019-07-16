@@ -1,69 +1,54 @@
 
-let arrOrders = [];
+const productElement = (product) => {
+    const tmpl = `
+    <p>${product.producto}</p>
+    <p>${product.precio}<p>
+    <button type="button" id="btn-add-${product.id}">Añadir</button>
+    `
+    /* const tmplListAdd = `
+        <p>${product.producto}<p>
+        <p>${product.precio}</p>
+        <button>Eliminar</button>  
+    ` */
+
+    const divSingleProduct = document.createElement('div');
+    divSingleProduct.innerHTML = tmpl;
+/* 
+    const liAddProduct = document.createElement('li');
+    liAddProduct.innerHTML = tmplListAdd; */
+
+    /* const listOrder = document.getElementById('see-order'); */
+
+    /* divSingleProduct.querySelector('button').addEventListener('click', () => {
+        listOrder.appendChild(liAddProduct)
+    }) */
+
+    return divSingleProduct;
+}
+
 
 export const showBreakfast = (callback) => {
     const container = document.getElementById('container-menu');
     container.innerHTML = '';
     callback()
-    .then((result) => {
-        console.log(result)
-        result.forEach(product => {
-
-       const listProducts = document.createElement('div');
-        listProducts.innerHTML += `<div class="div-desayunos"> 
-     <img src="${product.img}">
-     <p>${product.producto}</p>
-     <p>s/.${product.precio}.00</p>
-     <button id="btn-add-${product.id}" class='product' type="button">Añadir</button>
-     </div>`
-
-
-     container.appendChild(listProducts)
-
-     const btnAdd = document.getElementById(`btn-add-${product.id}`)
-     btnAdd.addEventListener('click',() => {
-         
-        const orderTable = `<table >
-        <caption> Lista de Pedidos</caption>
-        <tr>
-            <th>Ítem</th>
-            <th>Precio $</th>
-        </tr>
-        <tr>
-            <td>${product.producto}</td>
-            <td>${product.precio}</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-        </tr>
-        </table>`
-
-        console.log('hjjjnjkjjhhuhbn')
-console.log(product)
-
-
-// listProduct.push(product)
-    // console.log(listProduct)
- container.innerHTML= orderTable;
-     })
-
-        });
-    });
+        .then((result) => {
+            result.forEach(product => {
+                
+                    container.appendChild(productElement(product));
+            })
+        })
 }
+
 
 export const showLunch = (callback) => {
     const container = document.getElementById('container-menu');
+
     container.innerHTML = '';
     callback()
-    .then((result) => {
-        result.forEach(product => {
-            console.log(result,'e')
-            container.innerHTML += `
+        .then((result) => {
+            result.forEach(product => {
+                console.log(result, 'e')
+                container.innerHTML += `
             <div class="single-product-lunch">
                 <img src="">
                 <p>${product.producto}</p>
@@ -71,7 +56,7 @@ export const showLunch = (callback) => {
                 <button type="button">Añadir</button>
             </div> 
             `
-            /* console.log(product.producto,'7') */
+                /* console.log(product.producto,'7') */
+            });
         });
-    });
 }
