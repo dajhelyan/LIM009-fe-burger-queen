@@ -18,7 +18,7 @@ const productElement = (product) => {
     divSingleProduct.querySelector('button').addEventListener('click', () => {
         listOrder.appendChild(orderElement(product))
         arrOrders.push(product)
-
+        totalOrder(arrOrders)
         console.log(arrOrders)
         /* return dataOrders(nameUser, arrOrders); */
     })
@@ -36,16 +36,31 @@ const orderElement = (product) => {
     const liAddProduct = document.createElement('li');
     liAddProduct.innerHTML = tmplListAdd;
 
-    const liElement = document.getElementById('see-order');
+    const ulElemt = document.getElementById('see-order');
 
     liAddProduct.querySelector('button').addEventListener('click', () => {
         arrOrders.pop(product)
 
-        liElement.removeChild(liAddProduct)
+        
+
+        ulElemt.removeChild(liAddProduct)
         console.log(arrOrders);
     })
 
     return liAddProduct
+}
+
+const totalOrder = (arrOrder) => {
+    /* const arrTotal = []; */
+    let acum = 0;
+    arrOrder.forEach(arr => {
+        const suma = acum + arr.precio
+        acum = suma
+        /* const tot = suma + arr.precio */
+        /* arrTotal.push(suma) */
+        console.log(acum)
+    })
+    
 }
 
 export const showBreakfast = (callback) => {
@@ -71,4 +86,4 @@ export const showLunch = (callback) => {
                 /* console.log(product.producto,'7') */
             });
         });
-}
+} 

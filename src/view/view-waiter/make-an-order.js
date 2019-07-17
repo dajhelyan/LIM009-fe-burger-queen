@@ -29,6 +29,7 @@ export const showPageWaiter = () => {
       <p>Pedido:</p>
       <ul id="see-order">
       </ul>
+      <button type="button" id="sent-order-kittchen">Enviar a la cocina</button>
     </div>
  `
     const pageWaiter = document.createElement('section');
@@ -43,8 +44,13 @@ export const showPageWaiter = () => {
     btnMenuLunch.addEventListener('click', () => {
       showLunch(getLunchData)
     });
-     
+
+    const btnSentOrder = pageWaiter.querySelector('#sent-order-kittchen');
+    btnSentOrder.addEventListener('click', () => {
+      const nameUser = pageWaiter.querySelector('#name-user').value;
+    }) 
     
+
 
     // const btnAlmuerzo = pageWaiter.querySelector('#almuerzo');
     // btnAlmuerzo.addEventListener('click',  )
