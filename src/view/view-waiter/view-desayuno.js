@@ -1,3 +1,6 @@
+/* import { dataOrders } from '../../lib/controller/firestore.js'; */
+
+const arrOrders = [];
 
 const productElement = (product) => {
     const tmpl = `
@@ -6,30 +9,46 @@ const productElement = (product) => {
     <p>S/${product.precio}<p>
     <button type="button" id="btn-add-${product.id}">Añadir</button>
     `
-
+   
 
     const divSingleProduct = document.createElement('div');
     divSingleProduct.classList.add('div-desayunos')
     divSingleProduct.innerHTML = tmpl;
-    /* 
-        const liAddProduct = document.createElement('li');
-        liAddProduct.innerHTML = tmplListAdd; */
 
-    /* const listOrder = document.getElementById('see-order'); */
-    // CREAR UN ARRAY DE BJETOS PARA GUARDAR LOS ELEMENTOS QUE SE HACE CLICK
-    divSingleProduct.querySelector('button').addEventListener('click', (e) => {
-        e.preventDefault()
-        const arrOrder = [''];
-        arrOrder.push(e.target)
-        console.log(arrOrder)
-        console.log(e.target)
+    const listOrder = document.getElementById('see-order');
 
+    divSingleProduct.querySelector('button').addEventListener('click', () => {
+        listOrder.appendChild(orderElement(product))
+        arrOrders.push(product)
 
+        console.log(arrOrders)
+        /* return dataOrders(nameUser, arrOrders); */
     })
 
     return divSingleProduct;
 }
 
+const orderElement = (product) => {
+    const tmplListAdd = `
+    <p>${product.producto}<p>
+    <p>${product.precio}</p>
+    <button type="button" id="btn-remove-ele-order-${product.id}">Eliminar</button>  
+    `
+
+    const liAddProduct = document.createElement('li');
+    liAddProduct.innerHTML = tmplListAdd;
+
+    const liElement = document.getElementById('see-order');
+
+    liAddProduct.querySelector('button').addEventListener('click', () => {
+        arrOrders.pop(product)
+
+        liElement.removeChild(liAddProduct)
+        console.log(arrOrders);
+    })
+
+    return liAddProduct
+}
 
 export const showBreakfast = (callback) => {
     const container = document.getElementById('container-menu');
@@ -37,7 +56,6 @@ export const showBreakfast = (callback) => {
     callback()
         .then((result) => {
             result.forEach(product => {
-
                 container.appendChild(productElement(product));
             })
         })
@@ -51,16 +69,7 @@ export const showLunch = (callback) => {
     callback()
         .then((result) => {
             result.forEach(product => {
-                console.log(result, 'e')
-                container.innerHTML += `
-            <div class="single-product-lunch">
-                
-                <p>${product.producto}</p>
-                <p>${product.precio}<p>
-               
-                <button type="button">Añadir</button>
-            </div> 
-            `
+                container.appendChild(productElement(product));
                 /* console.log(product.producto,'7') */
             });
         });

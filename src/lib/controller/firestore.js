@@ -1,5 +1,14 @@
 
- export const getDataBreakfast = () => {
+export const dataOrders = (nameUser, order) => {
+    const db = firebase.firestore();
+    return db.collection("orders").set({
+        customerName: nameUser,
+        order: order
+        /* estado: estado */
+    })
+}
+
+export const getDataBreakfast = () => {
     const db = firebase.firestore();
 
     return db.collection("desayuno")
@@ -42,4 +51,9 @@ export const getLunchData = () => {
         console.log(arrLunchData, 'w')
         return arrLunchData;
     });
+}
+
+export const deleteElementOrder = (id) => {
+    return firebase.firestore().collection("orders")
+
 }
