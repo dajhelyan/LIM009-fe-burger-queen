@@ -30,11 +30,20 @@ const orderElement = (product) => {
     const tmplListAdd = `
     <p>${product.producto}<p>
     <p>${product.precio}</p>
-    <button>Eliminar</button>  
+    <button type="button" id="btn-remove-ele-order-${product.id}">Eliminar</button>  
     `
 
     const liAddProduct = document.createElement('li');
     liAddProduct.innerHTML = tmplListAdd;
+
+    const liElement = document.getElementById('see-order');
+
+    liAddProduct.querySelector('button').addEventListener('click', () => {
+        arrOrders.pop(product)
+
+        liElement.removeChild(liAddProduct)
+        console.log(arrOrders);
+    })
 
     return liAddProduct
 }

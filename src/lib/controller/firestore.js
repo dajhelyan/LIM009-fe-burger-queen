@@ -50,3 +50,8 @@ export const getLunchData = () => {
         return arrLunchData;
     });
 }
+
+export const deleteElementOrder = (id) => {
+    return firebase.firestore().collection("orders")
+
+}
