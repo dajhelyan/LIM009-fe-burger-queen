@@ -19,7 +19,7 @@ export const showPageWaiter = () => {
     <div>
       <p>Ingresar Nombre de Cliente </p>
       <input type="text" id="name-user" placeholder="Nombre Cliente"></input>
-Ñ      <button type="button">guardar</button>
+      <button type="button">guardar</button>
       <button type="button" id="menu-breakfast">Desayuno</button>
       <button type="button" id="menu-lunch">Almuerzo</button>
     </div>
