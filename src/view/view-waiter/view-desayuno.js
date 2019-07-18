@@ -8,7 +8,7 @@ const productElement = (product) => {
     <p>${product.precio}<p>
     <button type="button" id="btn-add-${product.id}">Añadir</button>
     `
-   
+
 
     const divSingleProduct = document.createElement('div');
     divSingleProduct.innerHTML = tmpl;
@@ -39,9 +39,9 @@ const orderElement = (product) => {
     const ulElemt = document.getElementById('see-order');
 
     liAddProduct.querySelector('button').addEventListener('click', () => {
-        arrOrders.pop(product)
+        removeElement(arrOrders, product)
 
-        
+
 
         ulElemt.removeChild(liAddProduct)
         console.log(arrOrders);
@@ -50,17 +50,20 @@ const orderElement = (product) => {
     return liAddProduct
 }
 
+const removeElement = (arr, ele) => {
+    let indice = arr.indexOf(ele);
+    console.log(indice)
+    arr.filter((element) => {
+        element.splice(indice, 1)
+    })
+}
+
 const totalOrder = (arrOrder) => {
     /* const arrTotal = []; */
-    let acum = 0;
-    arrOrder.forEach(arr => {
-        const suma = acum + arr.precio
-        acum = suma
-        /* const tot = suma + arr.precio */
-        /* arrTotal.push(suma) */
-        console.log(acum)
-    })
-    
+    const sum = arrOrder.reduce((acum, valorActual) => {
+        return acum + valorActual.precio
+    }, 0)
+    console.log(sum)
 }
 
 export const showBreakfast = (callback) => {
