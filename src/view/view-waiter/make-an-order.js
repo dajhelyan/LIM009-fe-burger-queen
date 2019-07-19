@@ -4,7 +4,7 @@ import { getDataBreakfast, getLunchData } from '../../lib/controller/firestore.j
 // import { pintarDesayuno } from '../../lib/view-controller/view-controller-firestore.js'
 // import { getBreakfastData, getLunchData } from '../../lib/controller/controller-firestore.js';
 
-export const showPageWaiter = () => {
+export const showPageWaiter = (nameUser) => {
     const divWaiter = ` 
     <header>
       <nav>
@@ -26,10 +26,19 @@ export const showPageWaiter = () => {
     <div id="container-menu">  
     </div>  
     <div>
-      <p>Pedido:</p>
-      <ul id="see-order">
-      </ul>
-      <button type="button" id="sent-order-kittchen">Enviar a la cocina</button>
+      <p>Pedido de ${nameUser}</p>
+      <table id="see-order">
+        <tr>
+          <th>Producto</th>
+          <th>Precio</th>
+          <th>Cant.</th>
+          <th>Eliminar</th>
+        </tr> 
+       
+       
+      </table>
+      <p>total</p>    
+              <button type="button" id="sent-order-kittchen">Enviar a la cocina</button>
     </div>
  `
     const pageWaiter = document.createElement('section');
