@@ -17,8 +17,7 @@ const productElement = (product) => {
 
     const btnAddProduct = divSingleProduct.querySelector('button');
     btnAddProduct.addEventListener('click', () => {
-       // listOrder.appendChild(orderElement(product))
-        /* console.log(cantProduct, 'jj nn') */
+        arrOrders
         const objProducto = {
             id: product.id,
             producto: product.producto,
@@ -27,33 +26,12 @@ const productElement = (product) => {
             subtotal: product.precio
         }
         addProductList(objProducto)
-       /*  if (arrOrders.id === objProducto.id) {
-            
-        } else {
-            
-        } */        
-    })
+       
+     })
 
     return divSingleProduct;
 }
-const addProductList = (obj) => {
-    addedCantProduct(obj);
-    totalOrder(arrOrders);
-    printCant(obj)
-}
 
-
-const printCant = (obj) => { 
-    const listOrder = document.getElementById('see-order');
-    arrOrders.forEach((element) => {
-    if (element.cant > 1) {
-        const replaceCant = listOrder.querySelector(`#can-${element.id}`)
-        replaceCant.textContent = `${element.cant}`
-    } else {
-        listOrder.appendChild(orderElement(obj))
-    }
-})
-}
 
 const orderElement = (product) => {
     const tmplListAdd = `
@@ -65,29 +43,101 @@ const orderElement = (product) => {
     <td><button type="button" id="btn-remove-ele-order-${product.id}">Eliminar</button></td>  
     `
 
-    const liAddProduct = document.createElement('tr');
-    liAddProduct.innerHTML = tmplListAdd;
+    const trCreateProduct = document.createElement('tr');
+    trCreateProduct.innerHTML = tmplListAdd;
 
-    const ulElemt = document.getElementById('see-order');
+    const tableElement = document.getElementById('see-order');
 
-    const addCantProduct = liAddProduct.querySelector(`#add-cant-${product.id}`);
+    const addCantProduct = trCreateProduct.querySelector(`#add-cant-${product.id}`);
     addCantProduct.addEventListener('click', () => {
         addProductList(product)
         
     })
 
+    const deleteProduct = trCreateProduct.querySelector(`#btn-remove-ele-order-${product.id}`);
+    deleteProduct.addEventListener('click', () => {
+        const newArr = [];
+        for (let i = 0; i < arrOrders.length; i++) {
+            const element = arrOrders[i];
+            if (product.id !== element.id) {
+                console.log('entreeeeeeexs')
+                newArr.push(element)
+                console.log(newArr, '33');
+                
+            } else {
+                console.log('no entreee');
+                tableElement.removeChild(trCreateProduct);
+            }
 
-    liAddProduct.querySelector('button').addEventListener('click', () => {
+        }
+        arrOrders = newArr
+    })
+
+    console.log(arrOrders,'dele')
+    trCreateProduct.querySelector(`#remove-one-cant${product.id}`).addEventListener('click', () => {
+        decreseCant(product)
        /*  removeElement(arrOrders, product)
 
-        ulElemt.removeChild(liAddProduct) */
+        tacle.removeChild(trCreateProduct) */
         console.log(arrOrders);
     })
 
-    return liAddProduct
+    return trCreateProduct
 }
 
-const addedCantProduct = (obj) => {
+const addProductList = (obj) => {
+    addedCantProduct(obj);
+    
+    printCant(obj)
+    totalOrder(arrOrders);
+}
+
+const decreseCant = (obj) => {
+    removeUniCant(obj)
+    removeCant();
+    
+}
+
+const removeUniCant = (obj) => {
+    const findID = arrOrders.find((producto) => {
+        console.log(producto, 'yy')
+        return producto.id === obj.id
+    })
+
+    if (findID !== undefined) {
+        console.log('existoooo')
+        let newArr = arrOrders.map(element => {
+            if (element.id === obj.id) {
+                if (element.cant > 1) {
+                    const cant = element.cant - 1;
+                    element.cant = cant;
+                    element.subtotal = cant * element.precio;
+                }
+                
+                return element;
+            } else {
+                return element;
+            }
+        })
+        arrOrders = newArr
+    } /* else {
+        arrOrders.push(obj)
+    } */
+}
+
+const removeCant = () => {
+    const listOrder = document.getElementById('see-order');
+    arrOrders.forEach((element) => {
+    if (element.cant >= 1) {
+        const replaceCant = listOrder.querySelector(`#can-${element.id}`)
+        replaceCant.textContent = `${element.cant}`
+    } else {
+        return listOrder
+    }
+})
+}
+
+const addedCantProduct = (obj) => { 
     const findID = arrOrders.find((producto) => {
         console.log(producto, 'yy')
         return producto.id === obj.id
@@ -129,6 +179,18 @@ const addedCantProduct = (obj) => {
     } else {
         arrOrders.push(obj)
     } */
+}
+
+const printCant = (obj) => { 
+    const listOrder = document.getElementById('see-order');
+    arrOrders.forEach((element) => {
+    if (element.cant > 1) {
+        const replaceCant = listOrder.querySelector(`#can-${element.id}`)
+        replaceCant.textContent = `${element.cant}`
+    } else if (element.id === obj.id) {
+        listOrder.appendChild(orderElement(obj))
+    }
+})
 }
 
 /* const removeElement = (arr, ele) => {
