@@ -1,21 +1,46 @@
+import { dataOrders,getDataBreakfast } from '../../lib/controller/firestore.js';
 
 export let arrOrders = [];
+let productos = '';
 
-export const printUserName = (user) => {
-    
-    const printName = document.getElementById('nameUser');
-    printName.innerHTML = user;
-}
-
-export const showBreakfast = (callback, productElemnt) => {
+export const showBreakfast = (productElemnt) => {
+   
     const container = document.getElementById('container-menu');
     container.innerHTML = '';
-    callback()
+
+    getDataBreakfast()
+    .then((result) => {
+        productos  = result;
+        /* productos.forEach(product => {
+            container.appendChild(productElemnt(product));
+        }) */
+    })
+    if (productos !== '') {
+        productos.forEach(product => {
+            container.appendChild(productElemnt(product));
+        })
+        console.log('entreeeeeeeeeeeeeeeeeeee')
+        
+    }
+
+    console.log(productos, 'lol')
+    /* if (productos !== '') {
+        productos.forEach(product => {
+            container.appendChild(productElemnt(product));
+        })
+        console.log('entreeeeeeeeeeeeeeeeeeee')
+    } else {
+        
+        callback()
+
         .then((result) => {
-            result.forEach(product => {
+            productos  = result;
+            productos.forEach(product => {
                 container.appendChild(productElemnt(product));
             })
         })
+    } 
+    console.log(productos, 'lol') */
 }
 
 export const showLunch = (callback, productElemnt) => {
@@ -30,6 +55,12 @@ export const showLunch = (callback, productElemnt) => {
             });
         });
 } 
+
+export const printUserName = (user) => {
+    
+    const printName = document.getElementById('nameUser');
+    printName.innerHTML = user;
+}
 
 export const addProductList = (obj, orderElemnt) => {
     addedCantProduct(obj);
@@ -185,4 +216,10 @@ export const totalOrder = (arrOrder) => {
 export const printTotalOrder = (totalOrder) => {
     const orderTotal = document.getElementById('totalOrder');
     orderTotal.textContent = totalOrder;
+}
+
+export const createOrder = () => {
+    const nameUser = document.getElementById('name-user').value;
+    const order = arrOrders;
+    dataOrders(nameUser, order)
 }

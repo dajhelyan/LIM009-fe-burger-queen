@@ -1,4 +1,4 @@
-import { showBreakfast, showLunch, addProductList, deleteProductOrder, decreseCant, totalOrder, printTotalOrder, arrOrders, printUserName } from "./view-desayuno.js";
+import { showBreakfast, showLunch, addProductList, deleteProductOrder, decreseCant, totalOrder, printTotalOrder, arrOrders, printUserName, createOrder } from "./view-desayuno.js";
 
 import { getDataBreakfast, getLunchData } from '../../lib/controller/firestore.js';
 // import { pintarDesayuno } from '../../lib/view-controller/view-controller-firestore.js'
@@ -23,7 +23,7 @@ export const showPageWaiter = () => {
       <button type="button" id="menu-breakfast">Desayuno</button>
       <button type="button" id="menu-lunch">Almuerzo</button>
     </div>
-    <div id="container-menu">  
+    <div class="container" id="container-menu">  
     </div>  
     <div>
       <p>Pedido de <span id="nameUser"></span></p>
@@ -46,7 +46,7 @@ export const showPageWaiter = () => {
 
     const btnDesayuno = pageWaiter.querySelector('#menu-breakfast');
     btnDesayuno.addEventListener('click', () => {
-      showBreakfast(getDataBreakfast, productElement)
+      showBreakfast(productElement)
     });
     
     const btnMenuLunch =  pageWaiter.querySelector('#menu-lunch');
@@ -63,6 +63,12 @@ export const showPageWaiter = () => {
       /* const nameUser = pageWaiter.querySelector('#name-user').value; */
     }) 
     
+    const btnSentKitchen = pageWaiter.querySelector('#sent-order-kittchen');
+    btnSentKitchen.addEventListener('click', () => {
+
+      createOrder()
+
+    })
 
     //aqui va funcion de firestore para tarer data y pintar
     return pageWaiter;
@@ -70,14 +76,16 @@ export const showPageWaiter = () => {
 
 export const productElement = (product) => {
   const tmpl = `
+  <img src="${product.img}" class="img-des"/>
   <p>${product.producto}</p>
-  <p>${product.precio}<p>
+  <p>${product.precio}</p>
 
   <button type="button" id="btn-add-${product.id}">Añadir</button>
   `
 
   const divSingleProduct = document.createElement('div');
   divSingleProduct.innerHTML = tmpl;
+  divSingleProduct.classList.add('desayunos');
 
   /* const listOrder = document.getElementById('see-order'); */
 

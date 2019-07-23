@@ -1,11 +1,28 @@
-.clase {
-  font-size: 18pt;
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
-.clase .otraClase {
-  background-color: red;
+nav li {
+  display: inline-block;
 }
-.clase .p {
-  background: #454545;
+nav a {
+  display: block;
+  padding: 6px 12px;
+  text-decoration: none;
+}
+
+.desayunos {
+  border-style: groove;
+  width: 200px;
+  text-align: center;
+  font-family: initial;
+}
+.desayunos .img-des {
+  display: block;
+  margin: auto;
+  width: 50%;
+  height: 40%;
 }
 
 /*# sourceMappingURL=main.css.map */

@@ -1,10 +1,12 @@
 
 export const dataOrders = (nameUser, order) => {
     const db = firebase.firestore();
-    return db.collection("orders").set({
+
+    return db.collection("orders").add({
         customerName: nameUser,
         order: order,
-        estado: pendiente
+        date: firebase.firestore.FieldValue.serverTimestamp(),
+        estado: 'pendiente'
     })
 }
 
@@ -19,7 +21,7 @@ export const getDataBreakfast = () => {
                 console.log(querySnapshot, 'ee')
                 const obj = {
                     id: doc.id,
-                    img:doc.img,
+                    img: doc.data().img,
                     producto: doc.data().producto,
                     precio: doc.data().precio
                 }
@@ -41,6 +43,7 @@ export const getLunchData = () => {
 
             const objDataLunch = {
                 id: doc.id,
+            
                 producto: doc.data().producto,
                 precio: doc.data().precio
             }
