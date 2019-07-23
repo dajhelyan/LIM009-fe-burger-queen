@@ -53,7 +53,7 @@ export const getLunchData = () => {
     });
 }
 
-export const deleteElementOrder = (id) => {
+/* export const deleteElementOrder = (id) => {
     return firebase.firestore().collection("orders")
 
-}
+} */

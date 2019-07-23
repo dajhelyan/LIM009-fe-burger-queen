@@ -19,36 +19,50 @@ export const showPageWaiter = () => {
     <div>
       <p>Ingresar Nombre de Cliente </p>
       <input type="text" id="name-user" placeholder="Nombre Cliente"></input>
-      <button>Guardar</button>
+      <button type="button" id="saveName">Guardar</button>
       <button type="button" id="menu-breakfast">Desayuno</button>
       <button type="button" id="menu-lunch">Almuerzo</button>
     </div>
     <div class="container" id="container-menu">  
     </div>  
-    <div>
+    <div id="order">
       <p>Pedido:</p>
+      
       <ul id="see-order">
       </ul>
+      <button type="button" id="sent-order-kittchen">Enviar a la cocina</button>
     </div>
  `
-  const pageWaiter = document.createElement('section');
-  pageWaiter.innerHTML = divWaiter;
+    const pageWaiter = document.createElement('section');
+    pageWaiter.innerHTML = divWaiter;
 
-  const btnDesayuno = pageWaiter.querySelector('#menu-breakfast');
-  btnDesayuno.addEventListener('click', () => {
-    showBreakfast(getDataBreakfast)
-  });
+    const btnDesayuno = pageWaiter.querySelector('#menu-breakfast');
+    btnDesayuno.addEventListener('click', () => {
+      showBreakfast(getDataBreakfast)
+    });
+    
+    const btnMenuLunch =  pageWaiter.querySelector('#menu-lunch');
+    btnMenuLunch.addEventListener('click', () => {
+      showLunch(getLunchData)
+    });
 
-  const btnMenuLunch = pageWaiter.querySelector('#menu-lunch');
-  btnMenuLunch.addEventListener('click', () => {
-    showLunch(getLunchData)
-  });
+    // const btnSentOrder = pageWaiter.querySelector('#sent-order-kittchen');
+    // btnSentOrder.addEventListener('click', () => {)}
+    const btnSaveName = pageWaiter.querySelector('#saveName');
+    btnSaveName.addEventListener('click', () =>{
+      const nameUser = pageWaiter.querySelector('#name-user').value;
+      console.log(nameUser)
+      const divOrder = pageWaiter.querySelector('#order')
+      divOrder.innerHTML = nameUser;
+
+    })
+           
+    
 
 
+    // const btnAlmuerzo = pageWaiter.querySelector('#almuerzo');
+    // btnAlmuerzo.addEventListener('click',  )
 
-  // const btnAlmuerzo = pageWaiter.querySelector('#almuerzo');
-  // btnAlmuerzo.addEventListener('click',  )
-
-  //aui va funcion de firestore para tarer data y pintar
-  return pageWaiter;
+        //aui va funcion de firestore para tarer data y pintar
+    return pageWaiter;
 }
