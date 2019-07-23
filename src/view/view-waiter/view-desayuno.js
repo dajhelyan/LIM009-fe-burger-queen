@@ -1,110 +1,189 @@
 /* import { dataOrders } from '../../lib/controller/firestore.js'; */
 
-const arrOrders = [];
+export let arrOrders = [];
 
-const productElement = (product) => {
-    const tmpl = `
-    <img src="${product.img}">
-    <p>${product.producto}</p>
-    <p>S/${product.precio}<p>
-    <button type="button" id="btn-add-${product.id}">Añadir</button>
-    `
-   
-
-    const divSingleProduct = document.createElement('div');
-    divSingleProduct.classList.add('div-desayunos')
-    divSingleProduct.innerHTML = tmpl;
-
-    const listOrder = document.getElementById('see-order');
-
-    divSingleProduct.querySelector('button').addEventListener('click', () => {
-        listOrder.appendChild(orderElement(product))
-        arrOrders.push(product)
-        totalOrder(arrOrders)
-        console.log(arrOrders)
-        /* return dataOrders(nameUser, arrOrders); */
-    })
-
-    return divSingleProduct;
-}
-
-const orderElement = (product) => {
-    // const nameUser = document.getElementById('name-user').value;
-    // <p>nameUser</p>
-    const tmplListAdd = `
-
-
-    <table>
-   
-    <tr>
-       <th>cant</th>
-        <th>Ítem</th>
-        <th>Precio $</th>
-    </tr>
-    <tr>
-        <td>${product.producto}</td>
-        <td>${product.precio}</td>
-    </tr>
-    </table>
-    
-    <button type="button" id="btn-remove-ele-order-${product.id}">Eliminar</button>  
-    `
-
-    const liAddProduct = document.createElement('li');
-    liAddProduct.innerHTML = tmplListAdd;
-
-    const ulElemt = document.getElementById('see-order');
-
-    liAddProduct.querySelector('button').addEventListener('click', () => {
-        let arrOrders
-        const index = arraOrders.indexOf([0]);
-        console.log(index)
-        //  arrOrders.filter( arrOrders => arrOrders[2] )
-
-
-        //usar metodo filter para decir que s vea todos los productos menos ql id de ese btn
-
-        ulElemt.removeChild(liAddProduct)
-        console.log(arrOrders);
-    })
-
-    return liAddProduct
-}
-
-const totalOrder = (arrOrder) => {
-    /* const arrTotal = []; */
-    let acum = 0;
-    arrOrder.forEach(arr => {
-        const suma = acum + arr.precio
-        acum = suma
-        /* const tot = suma + arr.precio */
-        /* arrTotal.push(suma) */
-        console.log(acum)
-    })
-    
-}
-
-export const showBreakfast = (callback) => {
+export const showBreakfast = (callback, productElemnt) => {
     const container = document.getElementById('container-menu');
     container.innerHTML = '';
     callback()
         .then((result) => {
             result.forEach(product => {
-                container.appendChild(productElement(product));
+                container.appendChild(productElemnt(product));
             })
         })
 }
 
 
-export const showLunch = (callback) => {
+export const showLunch = (callback, productElemnt) => {
     const container = document.getElementById('container-menu');
 
     container.innerHTML = '';
     callback()
         .then((result) => {
             result.forEach(product => {
-                container.appendChild(productElement(product));
+                container.appendChild(productElemnt(product));
                 /* console.log(product.producto,'7') */
             });
         });
 } 
+
+
+
+export const deleteProductOrder = (obj, tbElemnt, trElemnt) => {
+    
+    const newArr = [];
+     arrOrders.forEach((element) => {
+        if (obj.id !== element.id) {
+            console.log('entreeeeeeexs')
+            newArr.push(element)
+            console.log(newArr, '33');
+            
+        } else {
+            console.log('no entreee');
+            tbElemnt.removeChild(trElemnt);
+        }
+     })
+        /* for (let i = 0; i < arrOrders.length; i++) {
+            const element = arrOrders[i];
+            if (product.id !== element.id) {
+                console.log('entreeeeeeexs')
+                newArr.push(element)
+                console.log(newArr, '33');
+                
+            } else {
+                console.log('no entreee');
+                tableElement.removeChild(trCreateProduct);
+            }
+
+        } */
+        arrOrders = newArr
+}
+
+
+
+export const addProductList = (obj, orderElemnt) => {
+    addedCantProduct(obj);
+    printCant(obj, orderElemnt)
+    let totalProductOrder = totalOrder(arrOrders);
+    printTotalOrder(totalProductOrder);
+    
+}
+
+export const printTotalOrder = (totalOrder) => {
+    const orderTotal = document.getElementById('totalOrder');
+    orderTotal.textContent = totalOrder;
+}
+
+export const decreseCant = (obj) => {
+    removeUniCant(obj)
+    removeCant();
+    let totalProductOrder = totalOrder(arrOrders);
+    printTotalOrder(totalProductOrder);
+}
+
+export const removeUniCant = (obj) => {
+    const findID = arrOrders.find((producto) => {
+        console.log(producto, 'yy')
+        return producto.id === obj.id
+    })
+
+    if (findID !== undefined) {
+        console.log('existoooo')
+        let newArr = arrOrders.map(element => {
+            if (element.id === obj.id) {
+                if (element.cant > 1) {
+                    const cant = element.cant - 1;
+                    element.cant = cant;
+                    element.subtotal = cant * element.precio;
+                }
+                
+                return element;
+            } else {
+                return element;
+            }
+        })
+        arrOrders = newArr
+    } /* else {
+        arrOrders.push(obj)
+    } */
+}
+
+export const removeCant = () => {
+    const listOrder = document.getElementById('see-order');
+    arrOrders.forEach((element) => {
+    if (element.cant >= 1) {
+        const replaceCant = listOrder.querySelector(`#can-${element.id}`);
+        replaceCant.textContent = `${element.cant}`
+    } else {
+        return listOrder
+    }
+
+})
+}
+
+
+// agregando cantidad al producto - recorriendo el array de ordenes y retornando el elemento que cumple con la condicion
+export const addedCantProduct = (obj) => { 
+    const findID = arrOrders.find((producto) => {
+        console.log(producto, 'yy')
+        return producto.id === obj.id
+    })
+
+    if (findID !== undefined) {
+        console.log('existoooo')
+        let newArr = arrOrders.map(element => {
+            if (element.id === obj.id) {
+                const acum = element.cant + 1;
+                element.cant = acum;
+                element.subtotal = acum * element.precio;
+                return element;
+            } else {
+                return element;
+            }
+        })
+        arrOrders = newArr
+    } else {
+        arrOrders.push(obj)
+    }
+    console.log(arrOrders, 'arrr');
+    
+        
+        /* for (let i = 0; i < arrOrders.length; i++) {
+            const element = arrOrders[i]
+            if (element.id === obj.id) {
+                const acum = element.cant + 1;
+                element.cant = acum;
+                newArr.push(element)
+                // console.log(acum, '22');
+                
+            } else {
+                newArr.push(element)
+            }
+        }
+        arrOrders = newArr
+    
+    } else {
+        arrOrders.push(obj)
+    } */
+}
+
+export const printCant = (obj, orderElemnt) => { 
+    const listOrder = document.getElementById('see-order');
+    arrOrders.forEach((element) => {
+    if (element.cant > 1) {
+        const replaceCant = listOrder.querySelector(`#can-${element.id}`)
+        replaceCant.textContent = `${element.cant}`
+    } else if (element.id === obj.id) {
+        listOrder.appendChild(orderElemnt(obj))
+    }
+})
+}
+
+
+export const totalOrder = (arrOrder) => {
+    const acumTotal =  arrOrder.reduce((acum, valorActual) => {
+        const sum = acum + valorActual.subtotal;
+        return sum
+    }, 0)
+    return acumTotal
+}

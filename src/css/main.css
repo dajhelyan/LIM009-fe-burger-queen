@@ -12,13 +12,13 @@ nav a {
   text-decoration: none;
 }
 
-.div-desayunos {
+.desayunos {
   border-style: groove;
   width: 200px;
   text-align: center;
   font-family: initial;
 }
-.div-desayunos img {
+.desayunos .img-des {
   display: block;
   margin: auto;
   width: 50%;
