@@ -1,6 +1,11 @@
-/* import { dataOrders } from '../../lib/controller/firestore.js'; */
 
 export let arrOrders = [];
+
+export const printUserName = (user) => {
+    
+    const printName = document.getElementById('nameUser');
+    printName.innerHTML = user;
+}
 
 export const showBreakfast = (callback, productElemnt) => {
     const container = document.getElementById('container-menu');
@@ -12,7 +17,6 @@ export const showBreakfast = (callback, productElemnt) => {
             })
         })
 }
-
 
 export const showLunch = (callback, productElemnt) => {
     const container = document.getElementById('container-menu');
@@ -27,40 +31,6 @@ export const showLunch = (callback, productElemnt) => {
         });
 } 
 
-
-
-export const deleteProductOrder = (obj, tbElemnt, trElemnt) => {
-    
-    const newArr = [];
-     arrOrders.forEach((element) => {
-        if (obj.id !== element.id) {
-            console.log('entreeeeeeexs')
-            newArr.push(element)
-            console.log(newArr, '33');
-            
-        } else {
-            console.log('no entreee');
-            tbElemnt.removeChild(trElemnt);
-        }
-     })
-        /* for (let i = 0; i < arrOrders.length; i++) {
-            const element = arrOrders[i];
-            if (product.id !== element.id) {
-                console.log('entreeeeeeexs')
-                newArr.push(element)
-                console.log(newArr, '33');
-                
-            } else {
-                console.log('no entreee');
-                tableElement.removeChild(trCreateProduct);
-            }
-
-        } */
-        arrOrders = newArr
-}
-
-
-
 export const addProductList = (obj, orderElemnt) => {
     addedCantProduct(obj);
     printCant(obj, orderElemnt)
@@ -69,61 +39,9 @@ export const addProductList = (obj, orderElemnt) => {
     
 }
 
-export const printTotalOrder = (totalOrder) => {
-    const orderTotal = document.getElementById('totalOrder');
-    orderTotal.textContent = totalOrder;
-}
-
-export const decreseCant = (obj) => {
-    removeUniCant(obj)
-    removeCant();
-    let totalProductOrder = totalOrder(arrOrders);
-    printTotalOrder(totalProductOrder);
-}
-
-export const removeUniCant = (obj) => {
-    const findID = arrOrders.find((producto) => {
-        console.log(producto, 'yy')
-        return producto.id === obj.id
-    })
-
-    if (findID !== undefined) {
-        console.log('existoooo')
-        let newArr = arrOrders.map(element => {
-            if (element.id === obj.id) {
-                if (element.cant > 1) {
-                    const cant = element.cant - 1;
-                    element.cant = cant;
-                    element.subtotal = cant * element.precio;
-                }
-                
-                return element;
-            } else {
-                return element;
-            }
-        })
-        arrOrders = newArr
-    } /* else {
-        arrOrders.push(obj)
-    } */
-}
-
-export const removeCant = () => {
-    const listOrder = document.getElementById('see-order');
-    arrOrders.forEach((element) => {
-    if (element.cant >= 1) {
-        const replaceCant = listOrder.querySelector(`#can-${element.id}`);
-        replaceCant.textContent = `${element.cant}`
-    } else {
-        return listOrder
-    }
-
-})
-}
-
-
 // agregando cantidad al producto - recorriendo el array de ordenes y retornando el elemento que cumple con la condicion
 export const addedCantProduct = (obj) => { 
+    
     const findID = arrOrders.find((producto) => {
         console.log(producto, 'yy')
         return producto.id === obj.id
@@ -179,6 +97,82 @@ export const printCant = (obj, orderElemnt) => {
 })
 }
 
+export const deleteProductOrder = (obj, tbElemnt, trElemnt) => {
+    
+    const newArr = [];
+     arrOrders.forEach((element) => {
+        if (obj.id !== element.id) {
+            console.log('entreeeeeeexs')
+            newArr.push(element)
+            console.log(newArr, '33');
+            
+        } else {
+            console.log('no entreee');
+            tbElemnt.removeChild(trElemnt);
+        }
+     })
+        /* for (let i = 0; i < arrOrders.length; i++) {
+            const element = arrOrders[i];
+            if (product.id !== element.id) {
+                console.log('entreeeeeeexs')
+                newArr.push(element)
+                console.log(newArr, '33');
+                
+            } else {
+                console.log('no entreee');
+                tableElement.removeChild(trCreateProduct);
+            }
+
+        } */
+        arrOrders = newArr
+}
+
+export const decreseCant = (obj) => {
+    removeUniCant(obj)
+    removeCant();
+    let totalProductOrder = totalOrder(arrOrders);
+    printTotalOrder(totalProductOrder);
+}
+
+export const removeUniCant = (obj) => {
+    const findID = arrOrders.find((producto) => {
+        console.log(producto, 'yy')
+        return producto.id === obj.id
+    })
+
+    if (findID !== undefined) {
+        console.log('existoooo')
+        let newArr = arrOrders.map(element => {
+            if (element.id === obj.id) {
+                if (element.cant > 1) {
+                    const cant = element.cant - 1;
+                    element.cant = cant;
+                    element.subtotal = cant * element.precio;
+                }
+                
+                return element;
+            } else {
+                return element;
+            }
+        })
+        arrOrders = newArr
+    } /* else {
+        arrOrders.push(obj)
+    } */
+}
+
+export const removeCant = () => {
+    const listOrder = document.getElementById('see-order');
+    arrOrders.forEach((element) => {
+    if (element.cant >= 1) {
+        const replaceCant = listOrder.querySelector(`#can-${element.id}`);
+        replaceCant.textContent = `${element.cant}`
+    } else {
+        return listOrder
+    }
+
+})
+}
 
 export const totalOrder = (arrOrder) => {
     const acumTotal =  arrOrder.reduce((acum, valorActual) => {
@@ -186,4 +180,9 @@ export const totalOrder = (arrOrder) => {
         return sum
     }, 0)
     return acumTotal
+}
+
+export const printTotalOrder = (totalOrder) => {
+    const orderTotal = document.getElementById('totalOrder');
+    orderTotal.textContent = totalOrder;
 }
