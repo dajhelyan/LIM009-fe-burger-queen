@@ -1,63 +1,49 @@
 /* import { dataOrders } from '../../lib/controller/firestore.js'; */
 
-let arrOrders = [];
+export let arrOrders = [];
 
-const productElement = (product) => {
-    const tmpl = `
-    <p>${product.producto}</p>
-    <p>${product.precio}<p>
-
-    <button type="button" id="btn-add-${product.id}">Añadir</button>
-    `
-
-    const divSingleProduct = document.createElement('div');
-    divSingleProduct.innerHTML = tmpl;
-
-    /* const listOrder = document.getElementById('see-order'); */
-
-    const btnAddProduct = divSingleProduct.querySelector('button');
-    btnAddProduct.addEventListener('click', () => {
-        arrOrders
-        const objProducto = {
-            id: product.id,
-            producto: product.producto,
-            precio: product.precio,
-            cant: 1,
-            subtotal: product.precio
-        }
-        addProductList(objProducto)
-       
-     })
-
-    return divSingleProduct;
+export const showBreakfast = (callback, productElemnt) => {
+    const container = document.getElementById('container-menu');
+    container.innerHTML = '';
+    callback()
+        .then((result) => {
+            result.forEach(product => {
+                container.appendChild(productElemnt(product));
+            })
+        })
 }
 
 
-const orderElement = (product) => {
-    const tmplListAdd = `
-    <td>${product.producto}</td>
-    <td>${product.precio}</td>
-    <td><span id="can-${product.id}">${product.cant}</span>
-    <button id="add-cant-${product.id}">+</button><button id="remove-one-cant${product.id}">-</button>
-    </td>
-    <td><button type="button" id="btn-remove-ele-order-${product.id}">Eliminar</button></td>  
-    `
+export const showLunch = (callback, productElemnt) => {
+    const container = document.getElementById('container-menu');
 
-    const trCreateProduct = document.createElement('tr');
-    trCreateProduct.innerHTML = tmplListAdd;
+    container.innerHTML = '';
+    callback()
+        .then((result) => {
+            result.forEach(product => {
+                container.appendChild(productElemnt(product));
+                /* console.log(product.producto,'7') */
+            });
+        });
+} 
 
-    const tableElement = document.getElementById('see-order');
 
-    const addCantProduct = trCreateProduct.querySelector(`#add-cant-${product.id}`);
-    addCantProduct.addEventListener('click', () => {
-        addProductList(product)
-        
-    })
 
-    const deleteProduct = trCreateProduct.querySelector(`#btn-remove-ele-order-${product.id}`);
-    deleteProduct.addEventListener('click', () => {
-        const newArr = [];
-        for (let i = 0; i < arrOrders.length; i++) {
+export const deleteProductOrder = (obj, tbElemnt, trElemnt) => {
+    
+    const newArr = [];
+     arrOrders.forEach((element) => {
+        if (obj.id !== element.id) {
+            console.log('entreeeeeeexs')
+            newArr.push(element)
+            console.log(newArr, '33');
+            
+        } else {
+            console.log('no entreee');
+            tbElemnt.removeChild(trElemnt);
+        }
+     })
+        /* for (let i = 0; i < arrOrders.length; i++) {
             const element = arrOrders[i];
             if (product.id !== element.id) {
                 console.log('entreeeeeeexs')
@@ -69,36 +55,33 @@ const orderElement = (product) => {
                 tableElement.removeChild(trCreateProduct);
             }
 
-        }
+        } */
         arrOrders = newArr
-    })
-
-    console.log(arrOrders,'dele')
-    trCreateProduct.querySelector(`#remove-one-cant${product.id}`).addEventListener('click', () => {
-        decreseCant(product)
-       /*  removeElement(arrOrders, product)
-
-        tacle.removeChild(trCreateProduct) */
-        console.log(arrOrders);
-    })
-
-    return trCreateProduct
 }
 
-const addProductList = (obj) => {
+
+
+export const addProductList = (obj, orderElemnt) => {
     addedCantProduct(obj);
+    printCant(obj, orderElemnt)
+    let totalProductOrder = totalOrder(arrOrders);
+    printTotalOrder(totalProductOrder);
     
-    printCant(obj)
-    totalOrder(arrOrders);
 }
 
-const decreseCant = (obj) => {
+export const printTotalOrder = (totalOrder) => {
+    const orderTotal = document.getElementById('totalOrder');
+    orderTotal.textContent = totalOrder;
+}
+
+export const decreseCant = (obj) => {
     removeUniCant(obj)
     removeCant();
-    
+    let totalProductOrder = totalOrder(arrOrders);
+    printTotalOrder(totalProductOrder);
 }
 
-const removeUniCant = (obj) => {
+export const removeUniCant = (obj) => {
     const findID = arrOrders.find((producto) => {
         console.log(producto, 'yy')
         return producto.id === obj.id
@@ -125,19 +108,22 @@ const removeUniCant = (obj) => {
     } */
 }
 
-const removeCant = () => {
+export const removeCant = () => {
     const listOrder = document.getElementById('see-order');
     arrOrders.forEach((element) => {
     if (element.cant >= 1) {
-        const replaceCant = listOrder.querySelector(`#can-${element.id}`)
+        const replaceCant = listOrder.querySelector(`#can-${element.id}`);
         replaceCant.textContent = `${element.cant}`
     } else {
         return listOrder
     }
+
 })
 }
 
-const addedCantProduct = (obj) => { 
+
+// agregando cantidad al producto - recorriendo el array de ordenes y retornando el elemento que cumple con la condicion
+export const addedCantProduct = (obj) => { 
     const findID = arrOrders.find((producto) => {
         console.log(producto, 'yy')
         return producto.id === obj.id
@@ -181,64 +167,23 @@ const addedCantProduct = (obj) => {
     } */
 }
 
-const printCant = (obj) => { 
+export const printCant = (obj, orderElemnt) => { 
     const listOrder = document.getElementById('see-order');
     arrOrders.forEach((element) => {
     if (element.cant > 1) {
         const replaceCant = listOrder.querySelector(`#can-${element.id}`)
         replaceCant.textContent = `${element.cant}`
     } else if (element.id === obj.id) {
-        listOrder.appendChild(orderElement(obj))
+        listOrder.appendChild(orderElemnt(obj))
     }
 })
 }
 
-/* const removeElement = (arr, ele) => {
-    let indice = arr.indexOf(ele);
-    console.log(indice)
-    arr.filter((element) => {
-        element.splice(indice, 1)
-    })
-} */
 
-
-/* const cantProduct = (arrOrder) => {
-    const sum = arrOrder.reduce((acum, valorActual) => {
-        return acum + valorActual.cant
-    }, 1)
-    console.log(sum, 'j')
-    return sum;
-} */
-
-const totalOrder = (arrOrder) => {
-    /* const arrTotal = []; */
-    const sum = arrOrder.reduce((acum, valorActual) => {
-        return acum + valorActual.subtotal
+export const totalOrder = (arrOrder) => {
+    const acumTotal =  arrOrder.reduce((acum, valorActual) => {
+        const sum = acum + valorActual.subtotal;
+        return sum
     }, 0)
-    console.log(sum)
+    return acumTotal
 }
-
-export const showBreakfast = (callback) => {
-    const container = document.getElementById('container-menu');
-    container.innerHTML = '';
-    callback()
-        .then((result) => {
-            result.forEach(product => {
-                container.appendChild(productElement(product));
-            })
-        })
-}
-
-
-export const showLunch = (callback) => {
-    const container = document.getElementById('container-menu');
-
-    container.innerHTML = '';
-    callback()
-        .then((result) => {
-            result.forEach(product => {
-                container.appendChild(productElement(product));
-                /* console.log(product.producto,'7') */
-            });
-        });
-} 

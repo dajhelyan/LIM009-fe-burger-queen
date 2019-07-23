@@ -1,4 +1,4 @@
-import { showBreakfast, showLunch } from "./view-desayuno.js";
+import { showBreakfast, showLunch, addProductList, deleteProductOrder, decreseCant, totalOrder, printTotalOrder, arrOrders } from "./view-desayuno.js";
 
 import { getDataBreakfast, getLunchData } from '../../lib/controller/firestore.js';
 // import { pintarDesayuno } from '../../lib/view-controller/view-controller-firestore.js'
@@ -37,7 +37,7 @@ export const showPageWaiter = (nameUser) => {
        
        
       </table>
-      <p>total</p>    
+      <p>Total: <span id="totalOrder"></span></p>
               <button type="button" id="sent-order-kittchen">Enviar a la cocina</button>
     </div>
  `
@@ -46,12 +46,12 @@ export const showPageWaiter = (nameUser) => {
 
     const btnDesayuno = pageWaiter.querySelector('#menu-breakfast');
     btnDesayuno.addEventListener('click', () => {
-      showBreakfast(getDataBreakfast)
+      showBreakfast(getDataBreakfast, productElement)
     });
     
     const btnMenuLunch =  pageWaiter.querySelector('#menu-lunch');
     btnMenuLunch.addEventListener('click', () => {
-      showLunch(getLunchData)
+      showLunch(getLunchData, productElement)
     });
 
     const btnSentOrder = pageWaiter.querySelector('#sent-order-kittchen');
@@ -66,4 +66,81 @@ export const showPageWaiter = (nameUser) => {
 
         //aui va funcion de firestore para tarer data y pintar
     return pageWaiter;
+}
+
+export const productElement = (product) => {
+  const tmpl = `
+  <p>${product.producto}</p>
+  <p>${product.precio}<p>
+
+  <button type="button" id="btn-add-${product.id}">Añadir</button>
+  `
+
+  const divSingleProduct = document.createElement('div');
+  divSingleProduct.innerHTML = tmpl;
+
+  /* const listOrder = document.getElementById('see-order'); */
+
+  const btnAddProduct = divSingleProduct.querySelector('button');
+  btnAddProduct.addEventListener('click', () => {
+      
+      const objProducto = {
+          id: product.id,
+          producto: product.producto,
+          precio: product.precio,
+          cant: 1,
+          subtotal: product.precio
+      }
+      addProductList(objProducto, orderElement)
+     
+   })
+
+  return divSingleProduct;
+}
+
+export const orderElement = (product) => {
+  const tmplListAdd = `
+  <td>${product.producto}</td>
+  <td>${product.precio}</td>
+  <td><span id="can-${product.id}">${product.cant}</span>
+  <button id="add-cant-${product.id}">+</button><button id="remove-one-cant${product.id}">-</button>
+  </td>
+  <td><button type="button" id="btn-remove-ele-order-${product.id}">Eliminar</button></td>  
+  `
+
+  const trCreateProduct = document.createElement('tr');
+  trCreateProduct.innerHTML = tmplListAdd;
+
+  const tableElement = document.getElementById('see-order');
+
+
+  const addCantProduct = trCreateProduct.querySelector(`#add-cant-${product.id}`);
+  addCantProduct.addEventListener('click', () => {
+      
+      addProductList(product)
+      
+  })
+
+  trCreateProduct.querySelector(`#btn-remove-ele-order-${product.id}`).addEventListener('click', () => {
+      deleteProductOrder(product, tableElement, trCreateProduct);
+      const totalProductOrder = totalOrder(arrOrders);
+      printTotalOrder(totalProductOrder);
+      
+  })
+
+  /* const deleteProduct = trCreateProduct.querySelector(`#btn-remove-ele-order-${product.id}`); 
+  deleteProduct.addEventListener('click', () => {
+      deleteProductOrder(product);
+  })
+*/
+
+  trCreateProduct.querySelector(`#remove-one-cant${product.id}`).addEventListener('click', () => {
+      decreseCant(product)
+     /*  removeElement(arrOrders, product)
+
+      tacle.removeChild(trCreateProduct) */
+      
+  })
+
+  return trCreateProduct
 }
