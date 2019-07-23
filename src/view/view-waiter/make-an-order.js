@@ -26,7 +26,7 @@ export const showPageWaiter = (nameUser) => {
     <div class="container" id="container-menu">  
     </div>  
     <div>
-      <p>Pedido de ${nameUser}</p>
+      <p id="name-user">Pedido de ${nameUser}</p>
       <table id="see-order">
         <tr>
           <th>Producto</th>
@@ -132,7 +132,7 @@ export const orderElement = (product) => {
 
   trCreateProduct.querySelector(`#btn-remove-ele-order-${product.id}`).addEventListener('click', () => {
       deleteProductOrder(product, tableElement, trCreateProduct);
-      const totalProductOrder = totalOrder(arrOrders);
+      const totalProductOrder = totalOrder();
       printTotalOrder(totalProductOrder);
       
   })
