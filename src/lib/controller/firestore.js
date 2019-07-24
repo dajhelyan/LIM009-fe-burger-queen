@@ -1,10 +1,12 @@
 
 export const dataOrders = (nameUser, order) => {
     const db = firebase.firestore();
-    return db.collection("orders").set({
+
+    return db.collection("orders").add({
         customerName: nameUser,
-        order: order
-        /* estado: estado */
+        order: order,
+        date: firebase.firestore.FieldValue.serverTimestamp(),
+        estado: 'pendiente'
     })
 }
 

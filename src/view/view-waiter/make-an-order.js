@@ -1,10 +1,8 @@
-import { showBreakfast, showLunch, addProductList, deleteProductOrder, decreseCant, totalOrder, printTotalOrder, arrOrders } from "./view-desayuno.js";
+import { showBreakfast, showLunch, addProductList, deleteProductOrder, decreseCant, totalOrder, printTotalOrder, arrOrders, printUserName, createOrder } from "./view-desayuno.js";
 
-import { getDataBreakfast, getLunchData } from '../../lib/controller/firestore.js';
-// import { pintarDesayuno } from '../../lib/view-controller/view-controller-firestore.js'
-// import { getBreakfastData, getLunchData } from '../../lib/controller/controller-firestore.js';
+import {  getLunchData } from '../../lib/controller/firestore.js';
 
-export const showPageWaiter = (nameUser) => {
+export const showPageWaiter = () => {
     const divWaiter = ` 
     <header>
       <nav>
@@ -19,14 +17,18 @@ export const showPageWaiter = (nameUser) => {
     <div>
       <p>Ingresar Nombre de Cliente </p>
       <input type="text" id="name-user" placeholder="Nombre Cliente"></input>
-      <button type="button" id="saveName">Guardar</button>
+      <button id="add-name-user" type="button">Guardar</button>
       <button type="button" id="menu-breakfast">Desayuno</button>
       <button type="button" id="menu-lunch">Almuerzo</button>
     </div>
     <div class="container" id="container-menu">  
     </div>  
     <div>
+<<<<<<< HEAD
       <p id="name-user">Pedido de ${nameUser}</p>
+=======
+      <p>Pedido de <span id="nameUser"></span></p>
+>>>>>>> f4b2ed43ddca0e7a3b8a2df8d5aed55199e8cb4d
       <table id="see-order">
         <tr>
           <th>Producto</th>
@@ -46,32 +48,31 @@ export const showPageWaiter = (nameUser) => {
 
     const btnDesayuno = pageWaiter.querySelector('#menu-breakfast');
     btnDesayuno.addEventListener('click', () => {
-      showBreakfast(getDataBreakfast, productElement)
+      showBreakfast(productElement)
     });
     
     const btnMenuLunch =  pageWaiter.querySelector('#menu-lunch');
     btnMenuLunch.addEventListener('click', () => {
-      showLunch(getLunchData, productElement)
+      showLunch(productElement)
     });
 
-    // const btnSentOrder = pageWaiter.querySelector('#sent-order-kittchen');
-    // btnSentOrder.addEventListener('click', () => {)}
-    const btnSaveName = pageWaiter.querySelector('#saveName');
-    btnSaveName.addEventListener('click', () =>{
-      const nameUser = pageWaiter.querySelector('#name-user').value;
-      console.log(nameUser)
-      const divOrder = pageWaiter.querySelector('#order')
-      divOrder.innerHTML = nameUser;
+    const btnAddNameUser = pageWaiter.querySelector('#add-name-user');
+    btnAddNameUser .addEventListener('click', () => {
+
+      const userName = document.getElementById('name-user').value;
+
+      printUserName(userName)
+      /* const nameUser = pageWaiter.querySelector('#name-user').value; */
+    }) 
+    
+    const btnSentKitchen = pageWaiter.querySelector('#sent-order-kittchen');
+    btnSentKitchen.addEventListener('click', () => {
+
+      createOrder()
 
     })
-           
-    
 
-
-    // const btnAlmuerzo = pageWaiter.querySelector('#almuerzo');
-    // btnAlmuerzo.addEventListener('click',  )
-
-        //aui va funcion de firestore para tarer data y pintar
+    //aqui va funcion de firestore para tarer data y pintar
     return pageWaiter;
 }
 
@@ -100,7 +101,8 @@ export const productElement = (product) => {
           cant: 1,
           subtotal: product.precio
       }
-      addProductList(objProducto, orderElement)
+
+      addProductList(objProducto, orderElement);
      
    })
 
@@ -126,7 +128,7 @@ export const orderElement = (product) => {
   const addCantProduct = trCreateProduct.querySelector(`#add-cant-${product.id}`);
   addCantProduct.addEventListener('click', () => {
       
-      addProductList(product)
+      addProductList(product);
       
   })
 
@@ -137,19 +139,10 @@ export const orderElement = (product) => {
       
   })
 
-  /* const deleteProduct = trCreateProduct.querySelector(`#btn-remove-ele-order-${product.id}`); 
-  deleteProduct.addEventListener('click', () => {
-      deleteProductOrder(product);
-  })
-*/
 
   trCreateProduct.querySelector(`#remove-one-cant${product.id}`).addEventListener('click', () => {
-      decreseCant(product)
-     /*  removeElement(arrOrders, product)
-
-      tacle.removeChild(trCreateProduct) */
-      
+      decreseCant(product);      
   })
 
-  return trCreateProduct
+  return trCreateProduct;
 }
