@@ -1,60 +1,57 @@
-import { dataOrders,getDataBreakfast } from '../../lib/controller/firestore.js';
+import { dataOrders, getDataBreakfast, getLunchData } from '../../lib/controller/firestore.js';
 
 export let arrOrders = [];
-let productos = '';
 
-export const showBreakfast = (productElemnt) => {
+let productos = {
+    breakfast: '',
+    lunch: ''
+};
+
+export const showBreakfast = (productElement) => {
    
     const container = document.getElementById('container-menu');
     container.innerHTML = '';
 
-    getDataBreakfast()
-    .then((result) => {
-        productos  = result;
-        /* productos.forEach(product => {
-            container.appendChild(productElemnt(product));
-        }) */
-    })
-    if (productos !== '') {
-        productos.forEach(product => {
-            container.appendChild(productElemnt(product));
-        })
-        console.log('entreeeeeeeeeeeeeeeeeeee')
-        
-    }
+    if (productos.breakfast === '') {
 
-    console.log(productos, 'lol')
-    /* if (productos !== '') {
-        productos.forEach(product => {
-            container.appendChild(productElemnt(product));
-        })
-        console.log('entreeeeeeeeeeeeeeeeeeee')
-    } else {
-        
-        callback()
-
+        getDataBreakfast()
         .then((result) => {
-            productos  = result;
-            productos.forEach(product => {
-                container.appendChild(productElemnt(product));
-            })
+            productos.breakfast = result;
+
+            printProducts(productos.breakfast, container, productElement)
         })
-    } 
-    console.log(productos, 'lol') */
+
+    } else {
+        printProducts(productos.breakfastbreakfast, container, productElement)
+    }
 }
 
-export const showLunch = (callback, productElemnt) => {
+export const showLunch = (productElement) => {
     const container = document.getElementById('container-menu');
 
     container.innerHTML = '';
-    callback()
+
+    if (productos.lunch === '') {
+
+        getLunchData()
         .then((result) => {
-            result.forEach(product => {
-                container.appendChild(productElemnt(product));
-                /* console.log(product.producto,'7') */
-            });
-        });
+            productos.lunch = result;
+
+            printProducts(productos.lunch, container, productElement)
+        })
+
+    } else {
+        printProducts(productos.lunch, container, productElement)
+    }
 } 
+
+const printProducts = (products, container, productElemnt) => {
+    
+    products.forEach(product => {
+        container.appendChild(productElemnt(product));
+    })
+
+}
 
 export const printUserName = (user) => {
     

@@ -1,8 +1,6 @@
 import { showBreakfast, showLunch, addProductList, deleteProductOrder, decreseCant, totalOrder, printTotalOrder, arrOrders, printUserName, createOrder } from "./view-desayuno.js";
 
-import { getDataBreakfast, getLunchData } from '../../lib/controller/firestore.js';
-// import { pintarDesayuno } from '../../lib/view-controller/view-controller-firestore.js'
-// import { getBreakfastData, getLunchData } from '../../lib/controller/controller-firestore.js';
+import {  getLunchData } from '../../lib/controller/firestore.js';
 
 export const showPageWaiter = () => {
     const divWaiter = ` 
@@ -51,7 +49,7 @@ export const showPageWaiter = () => {
     
     const btnMenuLunch =  pageWaiter.querySelector('#menu-lunch');
     btnMenuLunch.addEventListener('click', () => {
-      showLunch(getLunchData, productElement)
+      showLunch(productElement)
     });
 
     const btnAddNameUser = pageWaiter.querySelector('#add-name-user');
