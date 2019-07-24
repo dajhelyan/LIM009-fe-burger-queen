@@ -1,12 +1,31 @@
-/* import { dataOrders } from '../../lib/controller/firestore.js'; */
+ import { dataOrders } from '../../lib/controller/firestore.js'; 
 
 export let arrOrders = [];
+
+// let productos = [];
+
+
+// const guardarFirestore= (callback)=>{
+//     callback()
+//     .then((result) => {
+//         productos = result
+//     })
+// }
+// export const showBreakfast = (callback, productElemnt) => {
+//     const container = document.getElementById('container-menu');
+//     container.innerHTML = '';
+//     callback()
+//     productElemnt.forEach(product => {
+//         container.appendChild(productElemnt(product));
+//     })
+// }
 
 export const showBreakfast = (callback, productElemnt) => {
     const container = document.getElementById('container-menu');
     container.innerHTML = '';
     callback()
         .then((result) => {
+           
             result.forEach(product => {
                 container.appendChild(productElemnt(product));
             })
