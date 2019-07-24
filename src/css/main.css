@@ -3,9 +3,11 @@ nav ul {
   padding: 0;
   list-style: none;
 }
+
 nav li {
   display: inline-block;
 }
+
 nav a {
   display: block;
   padding: 6px 12px;
@@ -18,11 +20,11 @@ nav a {
   text-align: center;
   font-family: initial;
 }
+
 .desayunos .img-des {
   display: block;
   margin: auto;
   width: 50%;
   height: 40%;
 }
-
 /*# sourceMappingURL=main.css.map */

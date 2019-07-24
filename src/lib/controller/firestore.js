@@ -43,7 +43,7 @@ export const getLunchData = () => {
 
             const objDataLunch = {
                 id: doc.id,
-            
+                img:doc.data().img,
                 producto: doc.data().producto,
                 precio: doc.data().precio
             }

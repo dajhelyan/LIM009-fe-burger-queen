@@ -1,28 +1,3 @@
-<<<<<<< HEAD
- import { dataOrders } from '../../lib/controller/firestore.js'; 
-
-export let arrOrders = [];
-
-// let productos = [];
-
-
-// const guardarFirestore= (callback)=>{
-//     callback()
-//     .then((result) => {
-//         productos = result
-//     })
-// }
-// export const showBreakfast = (callback, productElemnt) => {
-//     const container = document.getElementById('container-menu');
-//     container.innerHTML = '';
-//     callback()
-//     productElemnt.forEach(product => {
-//         container.appendChild(productElemnt(product));
-//     })
-// }
-
-export const showBreakfast = (callback, productElemnt) => {
-=======
 import { dataOrders, getDataBreakfast, getLunchData } from '../../lib/controller/firestore.js';
 
 export let arrOrders = [];
@@ -34,7 +9,6 @@ let productos = {
 
 export const showBreakfast = (productElement) => {
    
->>>>>>> f4b2ed43ddca0e7a3b8a2df8d5aed55199e8cb4d
     const container = document.getElementById('container-menu');
     container.innerHTML = '';
 
@@ -42,16 +16,9 @@ export const showBreakfast = (productElement) => {
 
         getDataBreakfast()
         .then((result) => {
-<<<<<<< HEAD
-           
-            result.forEach(product => {
-                container.appendChild(productElemnt(product));
-            })
-=======
             productos.breakfast = result;
 
             printProducts(productos.breakfast, container, productElement)
->>>>>>> f4b2ed43ddca0e7a3b8a2df8d5aed55199e8cb4d
         })
 
     } else {
@@ -68,6 +35,7 @@ export const showLunch = (productElement) => {
 
         getLunchData()
         .then((result) => {
+
             productos.lunch = result;
 
             printProducts(productos.lunch, container, productElement)
@@ -162,7 +130,9 @@ export const deleteProductOrder = (obj, tbElemnt, trElemnt) => {
     
     const newArr = [];
      arrOrders.forEach((element) => {
+         console.log(element)
         if (obj.id !== element.id) {
+            
             console.log('entreeeeeeexs')
             newArr.push(element)
             console.log(newArr, '33');
@@ -236,7 +206,9 @@ export const removeCant = () => {
 }
 
 export const totalOrder = (arrOrder) => {
+    
     const acumTotal =  arrOrder.reduce((acum, valorActual) => {
+        console.log(arrOrder)
         const sum = acum + valorActual.subtotal;
         return sum
     }, 0)
