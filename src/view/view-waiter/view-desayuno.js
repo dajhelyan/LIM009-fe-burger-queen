@@ -7,6 +7,8 @@ let productos = {
     lunch: ''
 };
 
+let totalProductOrder = '';
+
 export const showBreakfast = (productElement) => {
    
     const container = document.getElementById('container-menu');
@@ -22,7 +24,7 @@ export const showBreakfast = (productElement) => {
         })
 
     } else {
-        printProducts(productos.breakfastbreakfast, container, productElement)
+        printProducts(productos.breakfast, container, productElement)
     }
 }
 
@@ -62,7 +64,7 @@ export const printUserName = (user) => {
 export const addProductList = (obj, orderElemnt) => {
     addedCantProduct(obj);
     printCant(obj, orderElemnt)
-    let totalProductOrder = totalOrder(arrOrders);
+    totalProductOrder = totalOrder(arrOrders);
     printTotalOrder(totalProductOrder);
     
 }
@@ -218,5 +220,6 @@ export const printTotalOrder = (totalOrder) => {
 export const createOrder = () => {
     const nameUser = document.getElementById('name-user').value;
     const order = arrOrders;
-    dataOrders(nameUser, order)
+    const totalOrder = totalProductOrder;
+    dataOrders(nameUser, order, totalOrder)
 }

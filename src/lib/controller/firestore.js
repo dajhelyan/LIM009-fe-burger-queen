@@ -1,10 +1,12 @@
+// import { totalOrder } from "../../view/view-waiter/view-desayuno";
 
-export const dataOrders = (nameUser, order) => {
+export const dataOrders = (nameUser, order, totalOrderProduct) => {
     const db = firebase.firestore();
 
     return db.collection("orders").add({
         customerName: nameUser,
         order: order,
+        total: totalOrderProduct,
         date: firebase.firestore.FieldValue.serverTimestamp(),
         estado: 'pendiente'
     })
