@@ -37,6 +37,7 @@ export const showLunch = (productElement) => {
 
         getLunchData()
         .then((result) => {
+
             productos.lunch = result;
 
             printProducts(productos.lunch, container, productElement)
@@ -131,7 +132,9 @@ export const deleteProductOrder = (obj, tbElemnt, trElemnt) => {
     
     const newArr = [];
      arrOrders.forEach((element) => {
+         console.log(element)
         if (obj.id !== element.id) {
+            
             console.log('entreeeeeeexs')
             newArr.push(element)
             console.log(newArr, '33');
@@ -205,7 +208,9 @@ export const removeCant = () => {
 }
 
 export const totalOrder = (arrOrder) => {
+    
     const acumTotal =  arrOrder.reduce((acum, valorActual) => {
+        console.log(arrOrder)
         const sum = acum + valorActual.subtotal;
         return sum
     }, 0)

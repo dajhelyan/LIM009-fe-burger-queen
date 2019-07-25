@@ -44,6 +44,7 @@ export const showPageWaiter = () => {
 
     const btnDesayuno = pageWaiter.querySelector('#menu-breakfast');
     btnDesayuno.addEventListener('click', () => {
+      console.log('akiki')
       showBreakfast(productElement)
     });
     
@@ -71,14 +72,92 @@ export const showPageWaiter = () => {
     //aqui va funcion de firestore para tarer data y pintar
     return pageWaiter;
 }
+/* <button type="button" id="btn-add-${product.id}">Añadir</button> */
+// export const productElement = (product) => {
+//   const tmpl = `
+//   <img src="${product.img}" class="img-des"/>
+//   <p>${product.producto}</p>
+//   <p>${product.precio}</p>
+//   <button type="button" id="btn-add-${product.id}">Añadir</button>
+
+
+ 
+//   `
+
+//   const divSingleProduct = document.createElement('div');
+//   divSingleProduct.innerHTML = tmpl;
+//   divSingleProduct.classList.add('desayunos');
+
+//   /* const listOrder = document.getElementById('see-order'); */
+
+
+
+//   const btnAddProduct = divSingleProduct.querySelector('button');
+//   btnAddProduct.addEventListener('click', () => {
+   
+      
+//       const objProducto = {
+//           id: product.id,
+//           producto: product.producto,
+//           precio: product.precio,
+//           cant: 1,
+//           subtotal: product.precio
+//       }
+
+//       addProductList(objProducto, orderElement);
+     
+//    })
+
+//   return divSingleProduct;
+// }
+
+// export const orderElement = (product) => {
+//   const tmplListAdd = `
+//   <td>${product.producto}</td>
+//   <td>${product.precio}</td>
+//   <td><span id="can-${product.id}">${product.cant}</span>
+//   <button id="add-cant-${product.id}">+</button>
+//   <button id="remove-one-cant${product.id}">-</button>
+//   </td>
+//   <td><button type="button" id="btn-remove-ele-order-${product.id}">Eliminar</button></td>  
+//   `
+
+//   const trCreateProduct = document.createElement('tr');
+//   trCreateProduct.innerHTML = tmplListAdd;
+
+//   const tableElement = document.getElementById('see-order');
+
+
+//   const addCantProduct = trCreateProduct.querySelector(`#add-cant-${product.id}`);
+//   addCantProduct.addEventListener('click', () => {
+      
+//       addProductList(product);
+      
+//   })
+
+//   trCreateProduct.querySelector(`#btn-remove-ele-order-${product.id}`).addEventListener('click', () => {
+//       deleteProductOrder(product, tableElement, trCreateProduct);
+//       const totalProductOrder = totalOrder(arrOrders);
+//       printTotalOrder(totalProductOrder);
+      
+//   })
+
+
+//   trCreateProduct.querySelector(`#remove-one-cant${product.id}`).addEventListener('click', () => {
+//       decreseCant(product);      
+//   })
+
+//   return trCreateProduct;
+// }
 
 export const productElement = (product) => {
-  const tmpl = `
+  const tmpl = `<div id="btn-add-${product.id}" >
   <img src="${product.img}" class="img-des"/>
   <p>${product.producto}</p>
   <p>${product.precio}</p>
+  </div>
 
-  <button type="button" id="btn-add-${product.id}">Añadir</button>
+ 
   `
 
   const divSingleProduct = document.createElement('div');
@@ -87,8 +166,11 @@ export const productElement = (product) => {
 
   /* const listOrder = document.getElementById('see-order'); */
 
-  const btnAddProduct = divSingleProduct.querySelector('button');
-  btnAddProduct.addEventListener('click', () => {
+
+
+  // const btnAddProduct = divSingleProduct.querySelector('button');
+  divSingleProduct.addEventListener('click', () => {
+   
       
       const objProducto = {
           id: product.id,
