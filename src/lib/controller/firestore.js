@@ -1,4 +1,3 @@
-// import { totalOrder } from "../../view/view-waiter/view-desayuno";
 
 export const dataOrders = (nameUser, order, totalOrderProduct) => {
     const db = firebase.firestore();
@@ -29,10 +28,12 @@ export const getDataBreakfast = () => {
                 }
                 arrDesayuno.push(obj);
             });
-            console.log(arrDesayuno)
-            return arrDesayuno;
+/*             console.log(arrDesayuno)
+ */            return arrDesayuno;
         });
 }
+
+export const arrLunchData = [];
 
 export const getLunchData = () => {
     const db = firebase.firestore();
@@ -40,17 +41,19 @@ export const getLunchData = () => {
     return db.collection("almuerzos")
     .get()
     .then((querySnapshot) => {
-        const arrLunchData = [];
         querySnapshot.forEach((doc) => {
 
             const objDataLunch = {
                 id: doc.id,
                 img:doc.data().img,
                 producto: doc.data().producto,
-                precio: doc.data().precio
+                de: doc.data().de,
+                adicionales: doc.data().adicionales,
+                precio: doc.data().precio,
+                categoria: doc.data().categoria
             }
-            console.log(objDataLunch, 'd')
-            arrLunchData.push(objDataLunch);
+/*             console.log(objDataLunch, 'd')
+ */            arrLunchData.push(objDataLunch);
         });
         console.log(arrLunchData, 'w')
         return arrLunchData;
