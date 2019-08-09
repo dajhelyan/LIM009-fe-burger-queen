@@ -1,6 +1,6 @@
 import { dataOrders, getDataBreakfast, getLunchData } from '../../lib/controller/firestore.js';
-/* import { orderElement } from '../view-waiter/make-an-order.js'
- */
+import { orderElement } from './make-an-order.js'
+
 export let arrOrders = [];
 
 let productos = {
@@ -77,6 +77,7 @@ export const showLunch = (productElement) => {
 }
 
 const elementoBurger = (productos) => {
+  console.log(productos.producto);
 
   let tmpSbores = '';
   productos.de.forEach(sabor => {
@@ -85,7 +86,7 @@ const elementoBurger = (productos) => {
 
   let tmplAdicionales = ''
   productos.adicionales.forEach(adicional => {
-    tmplAdicionales += `<button class="burger-adicional-button" data-adicional="${adicional}">${adicional}</button>`
+    tmplAdicionales += `<button class="burger-adicional-button" data-adicional="${adicional}" data-burger="${productos.producto}">${adicional}</button>`
   })
 
   const tmpl = `
@@ -99,7 +100,25 @@ const elementoBurger = (productos) => {
   return tmpl;
 }
 
+let objBurger = {
+  id: null,
+  tipo: null,
+  producto: null,
+  adicional: null,
+  cant: 1,
+  precioAdicional: 1,
+  subtotal: null + null
+}
 
+/* const objBurger = {
+            id: productos.id,
+            tipo: productos.de,
+            producto: productos.product + 'de' + tipo + adicional,
+            adicional: productos.adicionales,
+            cant: 1,
+            precioAdicional: productos.precioAdicional,
+            subtotal: productos.precio + precioAdicional
+          } */
 
 const printProductsForCategory = (objCategory, container, productElement) => {
 
@@ -115,22 +134,53 @@ const printProductsForCategory = (objCategory, container, productElement) => {
 
         singleProduct.innerHTML += elementoBurger(productos);
         container.appendChild(singleProduct)
+        console.log(singleProduct.innerHTML, 'di');
+
+        document.querySelectorAll(`.burger-sabor-button[data-burger="${productos.producto}"]`).forEach(btn => {
+
+          btn.addEventListener('click', () => {
+            let sabor = btn.dataset.sabor;
+            objBurger.tipo = sabor;
+            console.log(sabor, 'kkk');
+            /* console.log(e.target, 'sksks') */
+          })
+        })
+
+        document.querySelectorAll(`.burger-adicional-button[data-burger="${productos.producto}"]`).forEach(btn => {
+          
+
+          btn.addEventListener('click', () => {
+            let adicional = btn.dataset.adicional
+            console.log(adicional, 'jjlll');
+
+            objBurger.adicional = adicional;
+          })
+        })
+
+
+
+        /* tmpSbores.addEventListener('click',  e => {
+          console.log(e.target, 'sksks')
+        }) */
+        /* document.querySelectorAll('.burger-sabor-button').forEach(b => console.log(b.dataset.sabor, b.dataset.burger)) */
 
         const addProductBurger = singleProduct.querySelector('#add-product-burger');
         addProductBurger.addEventListener('click', () => {
-          console.log('entreeee');
+          console.log(productos, 'entreeee');
 
-          const objBurger = {
-            id: productos.id,
-            tipo: productos.de,
-            producto: productos.product + 'de' + tipo + adicional,
-            adicional: productos.adicionales,
-            cant: 1,
-            precioAdicional: productos.precioAdicional,
-            subtotal: productos.precio + precioAdicional
+          if (objBurger.adicional === null) {
+            objBurger.id = productos.id;
+            objBurger.producto = productos.producto + "de " + objBurger.tipo;
+            objBurger.subtotal = productos.precio;
+          } else {
+            objBurger.id = productos.id;
+            objBurger.producto = productos.producto + "de " + objBurger.tipo + " adicional " + objBurger.adicional;
+            objBurger.precioAdicional = objBurger.precioAdicional;
+            objBurger.subtotal = productos.precio + objBurger.precioAdicional;
           }
-          //addProductList(objBurger);
+
           console.log(objBurger, 'jjj');
+          addProductList(objBurger, orderElement);
 
 
         })
@@ -198,8 +248,19 @@ export const printUserName = (user) => {
 export const addProductList = (obj, orderElemnt) => {
   addedCantProduct(obj);
   printCant(obj, orderElemnt)
+  
   totalProductOrder = totalOrder(arrOrders);
   printTotalOrder(totalProductOrder);
+
+  objBurger = {
+    id: null,
+    tipo: null,
+    producto: null,
+    adicional: null,
+    cant: 1,
+    precioAdicional: 1,
+    subtotal: null
+  }
 
 }
 

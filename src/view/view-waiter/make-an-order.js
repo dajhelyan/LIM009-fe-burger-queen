@@ -133,7 +133,7 @@ export const productElement = (product) => {
 export const orderElement = (product) => {
   const tmplListAdd = `
   <td>${product.producto}</td>
-  <td>${product.precio}</td>
+  <td>${product.subtotal}</td>
   <td><span id="can-${product.id}">${product.cant}</span>
   <button id="add-cant-${product.id}">+</button><button id="remove-one-cant${product.id}">-</button>
   </td>
