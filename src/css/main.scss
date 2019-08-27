@@ -1,19 +1,90 @@
-nav {
-    ul {
-      margin: 0;
-      padding: 0;
-      list-style: none;
+$font-nav: 'Pacifico', cursive;
+$font-nav-brand: 'Bungee Shade', cursive;
+$color-nav: #f2ca00;
+$color-nav-scundary: #ffd54f;
+$width-500-px: 340px;
+
+// navbar page home
+.navbar {
+  background-color: $color-nav-scundary;
+  .navbar-brand {
+    margin: 0;
+    padding: 0;
+    div {
+      display: inline-flex;
+      /* margin: auto; */
     }
-  
-    li { display: inline-block; }
-  
-    a {
-      display: block;
-      padding: 6px 12px;
-      text-decoration: none;
+    span {
+      margin: auto;
+    }
+    .p-header {
+      font-family: $font-nav-brand;
+      font-size: 26px;
+      margin-bottom: 0%;
+      margin-left: 10px;
+    }
+    
+  }
+  .form-inline {
+    .btn-home {
+      height: 50px;
+      width: 80px;
+      font-size: 20px;
+    }
+    .btn-orders {
+      margin-left: 15px;
+      height: 50px;
+      width: 135px;
+      font-size: 20px;
     }
   }
-  .desayunos{
+}
+
+/* margin-left: 15px!important;
+    height: 50px;
+    width: 135px;
+    font-size: 20px; */
+
+.contenedor-home {
+  height: 445px;
+  padding: 0%!important;
+  .figure {
+    width: $width-500-px;
+    margin-left: 10px;
+    .img-home {
+      width: 340px;
+      margin-top: 20px;
+    }
+  }
+  div {
+    h1 {
+      font-family: $font-nav;
+      margin: 15px 10px 40px 10px;
+      font-size: 44px;
+    }
+  }
+  .container-buttons {
+    flex-direction: column;
+    margin: 0 47px 0 50px;
+    margin-bottom: 45px;
+    button {
+      border-radius: 25px;
+      width: 200px;
+      height: 55px;
+      background-color: #ff5219;
+      color: white;
+      margin: 0 25px 0 25px;
+      font-size: 30px;
+      margin-bottom: 30px
+    }
+  }
+}  
+
+
+
+
+
+.desayunos{
     border-style:groove;
     width: 200px;
     text-align: center;
@@ -24,4 +95,6 @@ nav {
     width: 50%;
     height: 40%;
 }
-  }
+}
+
+

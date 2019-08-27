@@ -3,14 +3,19 @@ import { showBreakfast, showLunch, addProductList, deleteProductOrder, decreseCa
 export const showPageWaiter = () => {
     const divWaiter = ` 
     <header>
-      <nav>
-        <ul>
-          <li><i class="fas fa-bars"></i></li>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Hacer Pedido</a></li>
-          <li><a href="#">Pedidos</a></li>
-      </ul>
-    </nav>
+    <nav class="navbar navbar-light justify-content-between navbar-waiter">
+      <a class="navbar-brand" href="#/home">
+        <div>
+            <img src="./img/logo.png" width="60" height="60" class="d-inline-block align-top" alt="">
+            <span>
+                <p class="p-header">Burger Queen</p>
+            </span>
+          </div>
+      </a>
+      <form class="form-inline">
+        <button class="btn btn-outline-success my-2 my-sm-0 btn-home" type="button">Home</button>
+        <button class="btn btn-outline-success my-2 my-sm-0 btn-orders" type="button">Ver pedidos</button>
+      </form>
     </header>
     <div>
       <p>Ingresar Nombre de Cliente </p>
@@ -61,7 +66,6 @@ export const showPageWaiter = () => {
       createOrder()
     })
 
-    //aqui va funcion de firestore para tarer data y pintar
     return pageWaiter;
 }
 
@@ -153,7 +157,7 @@ export const orderElement = (product) => {
       
   })
 
-  trCreateProduct.querySelector(`#btn-remove-ele-order-${product.id}`).addEventListener('click', () => {
+  trCreateProduct.querySelector(`#btn-remove-ele-order-${product.id}`).addEventListener('click', () => { debugger
       deleteProductOrder(product, tableElement, trCreateProduct);
       const totalProductOrder = totalOrder(arrOrders);
       printTotalOrder(totalProductOrder);

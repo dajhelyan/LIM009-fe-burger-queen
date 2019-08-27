@@ -4,20 +4,24 @@ import { homePage } from '../lib/view-controller/view-controller-firestore.js'
 export const viewHome = () => {
     const homeTemplate = `
     <header>
-    <nav class="navbar navbar-light bg-light">
+    <nav class="navbar navbar-light">
         <a class="navbar-brand" href="#">
-            <img src="./img/logo.png" width="50" height="50" class="d-inline-block align-top" alt="">
-            Burguer Queen
+            <div>
+                <img src="./img/logo.png" width="60" height="60" class="d-inline-block align-top" alt="">
+                <span>
+                    <p class="p-header">Burger Queen</p>
+                </span>
+            </div>
         </a>
     </nav>
     </header>
-    <div class="d-flex p-2 bd-highlight align-self-center">
+    <div class="d-flex p-2 bd-highlight align-self-center contenedor-home">
         <figure class="figure">
-            <img src="./img/setComida.png" class="figure-img img-fluid rounded" alt="...">
+            <img class="img-home" src="./img/setComida.png" class="figure-img img-fluid rounded" alt="...">
         </figure>
         <div class="d-flex align-content-around flex-wrap">
-            <h1>Team Burguer Queen</h1>
-            <div class="d-flex align-items-center">
+            <h1>Team Burger Queen</h1>
+            <div class="d-flex align-items-center container-buttons">
                 <button id="waiter" type="button">Meserx</button>
                 <button id="kitchen" type="button">Cocinerx</button>
             </div>

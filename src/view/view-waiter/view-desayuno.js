@@ -44,37 +44,11 @@ export const showLunch = (productElement) => {
         productos.lunch = result;
 
         printProductsForCategory(objCategoryProd, container, productElement)
-
-
-
-
-        /* const hamburgesas = product[1];
-        console.log(hamburgesas, 'kkk');
-        
-        const printTmplHamburgesa = (hamburgesas) => {
-            const hamburgesaTmpl = `
-                <div>
-                    <img src="${hamburgesas.img}" class="img-des" />
-                    <p>${hamburgesas.producto}</p>
-                    <button>Pollo</button><button>Carne</button><button>Vegana</button>
-                    <p>adicionales + $1</p>
-                    <button>huevo</button><button>queso</button>
-                    <p>${hamburgesas.precio}</p>
-                </div>`
-
-                const divCatHmbrg = document.createElement('div')
-                divCatHmbrg.innerHTML = hamburgesaTmpl
-
-                return divCatHmbrg;
-        }
-        
-        container.appendChild(printTmplHamburgesa(hamburgesas))
-        console.log('existo'); */
       })
   } else {
     printProducts(productos.lunch, container, productElement)
   }
-}
+} 
 
 const elementoBurger = (productos) => {
   console.log(productos.producto);
@@ -90,7 +64,7 @@ const elementoBurger = (productos) => {
   })
 
   const tmpl = `
-    <img src="${productos.img}" class="img-des" />
+    <img class="img-des" src="${productos.img}"  />
     <p>${productos.producto}</p>
     <span>${tmpSbores}</span>
     <p>adicionales + $1</p>
@@ -107,18 +81,9 @@ let objBurger = {
   adicional: null,
   cant: 1,
   precioAdicional: 1,
-  subtotal: null + null
+  subtotal: null
 }
 
-/* const objBurger = {
-            id: productos.id,
-            tipo: productos.de,
-            producto: productos.product + 'de' + tipo + adicional,
-            adicional: productos.adicionales,
-            cant: 1,
-            precioAdicional: productos.precioAdicional,
-            subtotal: productos.precio + precioAdicional
-          } */
 
 const printProductsForCategory = (objCategory, container, productElement) => {
 
@@ -131,6 +96,7 @@ const printProductsForCategory = (objCategory, container, productElement) => {
       const tmplBurger = (productos) => {
 
         const singleProduct = document.createElement('div')
+        singleProduct.classList.add('desayunos')
 
         singleProduct.innerHTML += elementoBurger(productos);
         container.appendChild(singleProduct)
@@ -165,17 +131,19 @@ const printProductsForCategory = (objCategory, container, productElement) => {
         /* document.querySelectorAll('.burger-sabor-button').forEach(b => console.log(b.dataset.sabor, b.dataset.burger)) */
 
         const addProductBurger = singleProduct.querySelector('#add-product-burger');
-        addProductBurger.addEventListener('click', () => {
+        addProductBurger.addEventListener('click', () => { debugger
           console.log(productos, 'entreeee');
 
           if (objBurger.adicional === null) {
             objBurger.id = productos.id;
             objBurger.producto = productos.producto + "de " + objBurger.tipo;
+            objBurger.precio = productos.precio;
             objBurger.subtotal = productos.precio;
           } else {
             objBurger.id = productos.id;
             objBurger.producto = productos.producto + "de " + objBurger.tipo + " adicional " + objBurger.adicional;
             objBurger.precioAdicional = objBurger.precioAdicional;
+            objBurger.precio = productos.precio;
             objBurger.subtotal = productos.precio + objBurger.precioAdicional;
           }
 
@@ -248,7 +216,6 @@ export const printUserName = (user) => {
 export const addProductList = (obj, orderElemnt) => {
   addedCantProduct(obj);
   printCant(obj, orderElemnt)
-  
   totalProductOrder = totalOrder(arrOrders);
   printTotalOrder(totalProductOrder);
 
@@ -256,34 +223,37 @@ export const addProductList = (obj, orderElemnt) => {
     id: null,
     tipo: null,
     producto: null,
+    precio: null,
     adicional: null,
-    cant: 1,
-    precioAdicional: 1,
-    subtotal: null
+    cant:1,
+    subtotal: null,
+    precioAdicional: 1
   }
 
 }
 
 // agregando cantidad al producto - recorriendo el array de ordenes y retornando el elemento que cumple con la condicion
-export const addedCantProduct = (obj) => {
+export const addedCantProduct = (obj) => { debugger
 
   const findID = arrOrders.find((producto) => {
     console.log(producto, 'yy')
-    return producto.id === obj.id
+    return producto.producto === obj.producto
   })
 
   if (findID !== undefined) {
     console.log('existoooo')
     let newArr = arrOrders.map(element => {
-      if (element.id === obj.id) {
+      if (element.producto === obj.producto) {
         const acum = element.cant + 1;
         element.cant = acum;
-        element.subtotal = acum * element.precio;
+        element.subtotal = acum * element.subtotal;
         return element;
       } else {
         return element;
       }
     })
+    console.log(newArr, 'newarr');
+    
     arrOrders = newArr
   } else {
     arrOrders.push(obj)
@@ -316,18 +286,18 @@ export const printCant = (obj, orderElemnt) => {
     if (element.cant > 1) {
       const replaceCant = listOrder.querySelector(`#can-${element.id}`)
       replaceCant.textContent = `${element.cant}`
-    } else if (element.id === obj.id) {
+    } else if (element.producto === obj.producto) {
       listOrder.appendChild(orderElemnt(obj))
     }
   })
 }
 
-export const deleteProductOrder = (obj, tbElemnt, trElemnt) => {
+export const deleteProductOrder = (obj, tbElemnt, trElemnt) => { 
 
   const newArr = [];
   arrOrders.forEach((element) => {
     console.log(element)
-    if (obj.id !== element.id) {
+    if (obj.producto !== element.producto) {
 
       console.log('entreeeeeeexs')
       newArr.push(element)
@@ -361,7 +331,7 @@ export const decreseCant = (obj) => {
   printTotalOrder(totalProductOrder);
 }
 
-export const removeUniCant = (obj) => {
+export const removeUniCant = (obj) => { 
   const findID = arrOrders.find((producto) => {
     console.log(producto, 'yy')
     return producto.id === obj.id
@@ -374,7 +344,10 @@ export const removeUniCant = (obj) => {
         if (element.cant > 1) {
           const cant = element.cant - 1;
           element.cant = cant;
-          element.subtotal = cant * element.precio;
+          let precioSubtotal = element.subtota;
+          console.log(precioSubtotal);
+          
+          precioSubtotal = cant * element.precio;
         }
 
         return element;
@@ -404,10 +377,12 @@ export const removeCant = () => {
 export const totalOrder = (arrOrder) => {
 
   const acumTotal = arrOrder.reduce((acum, valorActual) => {
-    console.log(arrOrder)
+    console.log(arrOrder, 'ooooooooooooo')
     const sum = acum + valorActual.subtotal;
     return sum
   }, 0)
+  console.log(acumTotal, 'jhjhjj');
+  
   return acumTotal
 }
 

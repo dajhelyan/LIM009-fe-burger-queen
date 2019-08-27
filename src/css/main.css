@@ -1,17 +1,86 @@
-nav ul {
+.navbar {
+  background-color: #ffd54f;
+}
+
+.navbar .navbar-brand {
   margin: 0;
   padding: 0;
-  list-style: none;
 }
 
-nav li {
-  display: inline-block;
+.navbar .navbar-brand div {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  /* margin: auto; */
 }
 
-nav a {
-  display: block;
-  padding: 6px 12px;
-  text-decoration: none;
+.navbar .navbar-brand span {
+  margin: auto;
+}
+
+.navbar .navbar-brand .p-header {
+  font-family: "Bungee Shade", cursive;
+  font-size: 26px;
+  margin-bottom: 0%;
+  margin-left: 10px;
+}
+
+.navbar .form-inline .btn-home {
+  height: 50px;
+  width: 80px;
+  font-size: 20px;
+}
+
+.navbar .form-inline .btn-orders {
+  margin-left: 15px;
+  height: 50px;
+  width: 135px;
+  font-size: 20px;
+}
+
+/* margin-left: 15px!important;
+    height: 50px;
+    width: 135px;
+    font-size: 20px; */
+.contenedor-home {
+  height: 445px;
+  padding: 0% !important;
+}
+
+.contenedor-home .figure {
+  width: 340px;
+  margin-left: 10px;
+}
+
+.contenedor-home .figure .img-home {
+  width: 340px;
+  margin-top: 20px;
+}
+
+.contenedor-home div h1 {
+  font-family: "Pacifico", cursive;
+  margin: 15px 10px 40px 10px;
+  font-size: 44px;
+}
+
+.contenedor-home .container-buttons {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin: 0 47px 0 50px;
+  margin-bottom: 45px;
+}
+
+.contenedor-home .container-buttons button {
+  border-radius: 25px;
+  width: 200px;
+  height: 55px;
+  background-color: #ff5219;
+  color: white;
+  margin: 0 25px 0 25px;
+  font-size: 30px;
+  margin-bottom: 30px;
 }
 
 .desayunos {
